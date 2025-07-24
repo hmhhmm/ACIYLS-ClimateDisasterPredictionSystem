@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'screens/water_source_map_screen.dart';
-import 'screens/qr_scanner_screen.dart';
-import 'screens/issue_reporting_screen.dart';
-import 'screens/offline_queue_screen.dart';
-import 'screens/notifications_screen.dart';
 import 'package:device_frame/device_frame.dart';
 import 'package:flutter/foundation.dart';
+import 'screens/dashboard_screen.dart';
+import 'screens/alerts_screen.dart';
+import 'screens/water_response_screen.dart';
+import 'package:intl/intl.dart';
+import '../models/climate_risk.dart';
 
 void main() {
   runApp(const MyApp());
@@ -73,11 +74,10 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
   static final List<Widget> _screens = <Widget>[
+    DashboardScreen(),
     WaterSourceMapScreen(),
-    QRScannerScreen(),
-    IssueReportingScreen(),
-    OfflineQueueScreen(),
-    NotificationsScreen(),
+    WaterResponseScreen(),
+    AlertsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -93,41 +93,13 @@ class _MainNavigationState extends State<MainNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
           BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code_scanner),
-            label: 'QR Scan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.report_problem),
-            label: 'Report',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cloud_upload),
-            label: 'Offline',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Alerts',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.water), label: 'Water'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Alerts'),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class PlaceholderScreen extends StatelessWidget {
-  final String title;
-  const PlaceholderScreen({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
       ),
     );
   }
