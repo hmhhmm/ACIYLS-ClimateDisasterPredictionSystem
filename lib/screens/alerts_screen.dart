@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/alert.dart';
 import '../services/alert_service.dart';
 
 class AlertsScreen extends StatefulWidget {
@@ -26,13 +25,21 @@ class _AlertsScreenState extends State<AlertsScreen> {
                 final alert = alerts[i];
                 return Card(
                   color: Colors.red[50],
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: ListTile(
-                    title: Text(alert.type, style: const TextStyle(fontWeight: FontWeight.bold)),
+                    title: Text(
+                      alert.type,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     subtitle: Text(alert.message),
                     trailing: Text(
                       '${alert.timestamp.month}/${alert.timestamp.day} ${alert.timestamp.hour}:${alert.timestamp.minute.toString().padLeft(2, '0')}',
-                      style: const TextStyle(fontSize: 12, color: Colors.black54),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
+                      ),
                     ),
                   ),
                 );
@@ -40,4 +47,4 @@ class _AlertsScreenState extends State<AlertsScreen> {
             ),
     );
   }
-} 
+}

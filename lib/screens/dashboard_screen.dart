@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/climate_risk.dart';
 import 'risk_detail_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -48,28 +47,31 @@ class DashboardScreen extends StatelessWidget {
       'icon': Icons.water,
       'color': Color(0xFFD32F2F),
       'riskLevel': 0.85,
-      'description': 'High flood risk due to heavy rainfall expected this week.'
+      'description':
+          'High flood risk due to heavy rainfall expected this week.',
     },
     {
       'type': 'Typhoon',
       'icon': Icons.air,
       'color': Color(0xFF1976D2),
       'riskLevel': 0.65,
-      'description': 'Moderate typhoon risk: strong winds and heavy rain possible.'
+      'description':
+          'Moderate typhoon risk: strong winds and heavy rain possible.',
     },
     {
       'type': 'Heatwave',
       'icon': Icons.wb_sunny,
       'color': Color(0xFFFFA000),
       'riskLevel': 0.55,
-      'description': 'Heatwave risk: high temperatures expected for several days.'
+      'description':
+          'Heatwave risk: high temperatures expected for several days.',
     },
     {
       'type': 'Drought',
       'icon': Icons.grass,
       'color': Color(0xFF388E3C),
       'riskLevel': 0.30,
-      'description': 'Low drought risk: rainfall is near normal.'
+      'description': 'Low drought risk: rainfall is near normal.',
     },
   ];
 
@@ -92,12 +94,27 @@ class DashboardScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 40), // Extra space for notch
-                Text(location, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF222B45))),
+                Text(
+                  location,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF222B45),
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(DateFormat('EEEE, MMM d, yyyy').format(now), style: const TextStyle(color: Color(0xFF6B7A8F), fontSize: 15)),
+                Text(
+                  DateFormat('EEEE, MMM d, yyyy').format(now),
+                  style: const TextStyle(
+                    color: Color(0xFF6B7A8F),
+                    fontSize: 15,
+                  ),
+                ),
                 const SizedBox(height: 24),
                 Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   color: const Color(0xFF3A5A98),
                   elevation: 3,
                   child: Padding(
@@ -108,20 +125,63 @@ class DashboardScreen extends StatelessWidget {
                           'https://openweathermap.org/img/wn/${mockWeather['icon']}@2x.png',
                           width: 60,
                           height: 60,
-                          errorBuilder: (context, error, stackTrace) => const Icon(Icons.cloud, size: 60, color: Colors.white54),
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(
+                                Icons.cloud,
+                                size: 60,
+                                color: Colors.white54,
+                              ),
                         ),
                         const SizedBox(height: 6),
-                        Text('${mockWeather['temperature']}°C', style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white)),
-                        Text('${mockWeather['condition']}', style: const TextStyle(fontSize: 17, color: Colors.white)),
-                        Text('Min: ${mockWeather['minTemperature']}°  Max: ${mockWeather['maxTemperature']}°', style: const TextStyle(fontSize: 13, color: Colors.white70)),
-                        Text('Humidity: ${mockWeather['humidity']}%', style: const TextStyle(fontSize: 13, color: Colors.white70)),
-                        Text('Rain: ${mockWeather['rainfall']} mm', style: const TextStyle(fontSize: 13, color: Colors.white70)),
+                        Text(
+                          '${mockWeather['temperature']}°C',
+                          style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          '${mockWeather['condition']}',
+                          style: const TextStyle(
+                            fontSize: 17,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          'Min: ${mockWeather['minTemperature']}°  Max: ${mockWeather['maxTemperature']}°',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: Colors.white70,
+                          ),
+                        ),
+                        Text(
+                          'Humidity: ${mockWeather['humidity']}%',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: Colors.white70,
+                          ),
+                        ),
+                        Text(
+                          'Rain: ${mockWeather['rainfall']} mm',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: Colors.white70,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
                 const SizedBox(height: 28),
-                Text('7-Day Forecast', style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Color(0xFF3A5A98))),
+                Text(
+                  '7-Day Forecast',
+                  style: const TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF3A5A98),
+                  ),
+                ),
                 const SizedBox(height: 10),
                 SizedBox(
                   height: 110,
@@ -144,14 +204,21 @@ class DashboardScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 7,
+                          horizontal: 4,
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Flexible(
                               child: Text(
                                 '${w['day']}',
-                                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: Color(0xFF3A5A98)),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13,
+                                  color: Color(0xFF3A5A98),
+                                ),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -159,26 +226,41 @@ class DashboardScreen extends StatelessWidget {
                               'https://openweathermap.org/img/wn/${w['icon']}.png',
                               width: 22,
                               height: 22,
-                              errorBuilder: (context, error, stackTrace) => const Icon(Icons.cloud, size: 22, color: Colors.blueGrey),
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(
+                                    Icons.cloud,
+                                    size: 22,
+                                    color: Colors.blueGrey,
+                                  ),
                             ),
                             Flexible(
                               child: Text(
                                 '${w['temp']}°',
-                                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF222B45)),
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF222B45),
+                                ),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Flexible(
                               child: Text(
                                 'Min: ${w['min']}°',
-                                style: const TextStyle(fontSize: 10, color: Color(0xFF6B7A8F)),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  color: Color(0xFF6B7A8F),
+                                ),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Flexible(
                               child: Text(
                                 'Max: ${w['max']}°',
-                                style: const TextStyle(fontSize: 10, color: Color(0xFF6B7A8F)),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  color: Color(0xFF6B7A8F),
+                                ),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -190,69 +272,89 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 28),
                 // Multiple climate risks
-                ...demoRisks.map((risk) => Padding(
-                  padding: const EdgeInsets.only(bottom: 14),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(14),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => RiskDetailScreen(
-                            type: risk['type'],
-                            description: risk['description'],
-                            color: _getRiskCardColor(risk['type']),
-                            icon: risk['icon'],
+                ...demoRisks.map(
+                  (risk) => Padding(
+                    padding: const EdgeInsets.only(bottom: 14),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(14),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => RiskDetailScreen(
+                              type: risk['type'],
+                              description: risk['description'],
+                              color: _getRiskCardColor(risk['type']),
+                              icon: risk['icon'],
+                            ),
                           ),
+                        );
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
                         ),
-                      );
-                    },
-                  child: Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      color: _getRiskCardColor(risk['type']),
-                    elevation: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                            Icon(risk['icon'], color: Colors.white, size: 28),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
+                        color: _getRiskCardColor(risk['type']),
+                        elevation: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(14),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(risk['icon'], color: Colors.white, size: 28),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      risk['type'],
-                                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          risk['type'],
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Tooltip(
+                                          message:
+                                              'Risk is calculated based on 7-day weather trends.',
+                                          child: Icon(
+                                            Icons.info_outline,
+                                            size: 14,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 5),
-                                    Tooltip(
-                                      message: 'Risk is calculated based on 7-day weather trends.',
-                                        child: Icon(Icons.info_outline, size: 14, color: Colors.white),
+                                    Text(
+                                      risk['description'],
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 6.0),
+                                      child: LinearProgressIndicator(
+                                        value: risk['riskLevel'],
+                                        color: Colors.white,
+                                        backgroundColor: Colors.white
+                                            .withOpacity(0.3),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                  Text(risk['description'], style: const TextStyle(fontSize: 12, color: Colors.white)),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6.0),
-                                  child: LinearProgressIndicator(
-                                    value: risk['riskLevel'],
-                                      color: Colors.white,
-                                      backgroundColor: Colors.white.withOpacity(0.3),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
                         ),
                       ),
                     ),
                   ),
-                )),
+                ),
               ],
             ),
           ),
@@ -275,4 +377,4 @@ class DashboardScreen extends StatelessWidget {
         return Colors.grey.shade300;
     }
   }
-} 
+}
