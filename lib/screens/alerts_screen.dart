@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/climate_data.dart';
 
 class AlertsScreen extends StatefulWidget {
   const AlertsScreen({super.key});
@@ -59,7 +58,12 @@ class _AlertsScreenState extends State<AlertsScreen> {
     );
   }
 
-  Widget _buildSection({required IconData icon, required String title, required Color color, required List<String> tips}) {
+  Widget _buildSection({
+    required IconData icon,
+    required String title,
+    required Color color,
+    required List<String> tips,
+  }) {
     return Card(
       color: color.withOpacity(0.08),
       elevation: 0,
@@ -79,28 +83,30 @@ class _AlertsScreenState extends State<AlertsScreen> {
                 Expanded(
                   child: Text(
                     title,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            ...tips.map((tip) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(Icons.check_circle, color: color, size: 18),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          tip,
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
+            ...tips.map(
+              (tip) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.check_circle, color: color, size: 18),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(tip, style: const TextStyle(fontSize: 15)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -27,7 +27,10 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(bottom: false, child: _screens[_selectedIndex]),
+      body: SafeArea(
+        bottom: false,
+        child: IndexedStack(index: _selectedIndex, children: _screens),
+      ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           border: Border(top: BorderSide(color: Color(0xFFE5E5EA), width: 0.5)),

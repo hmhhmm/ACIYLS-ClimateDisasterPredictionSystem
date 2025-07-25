@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import '../models/water_usage_stats.dart';
 import 'water_unit_details_screen.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';

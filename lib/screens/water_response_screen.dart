@@ -1086,61 +1086,75 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               'Usage Breakdown',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 200,
-              child: PieChart(
-                PieChartData(
-                  sectionsSpace: 2,
-                  centerSpaceRadius: 40,
-                  sections: [
-                    PieChartSectionData(
-                      value: 40,
-                      title: '40%',
-                      color: Colors.blue,
-                      radius: 100,
-                      titleStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+            const SizedBox(height: 8),
+            Center(
+              child: SizedBox(
+                width: 160,
+                height: 160,
+                child: PieChart(
+                  PieChartData(
+                    sectionsSpace: 2,
+                    centerSpaceRadius: 40,
+                    sections: [
+                      PieChartSectionData(
+                        value: 40,
+                        title: '40%',
+                        color: Colors.blue,
+                        radius: 100,
+                        titleStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    PieChartSectionData(
-                      value: 30,
-                      title: '30%',
-                      color: Colors.green,
-                      radius: 100,
-                      titleStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                      PieChartSectionData(
+                        value: 30,
+                        title: '30%',
+                        color: Colors.green,
+                        radius: 100,
+                        titleStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    PieChartSectionData(
-                      value: 30,
-                      title: '30%',
-                      color: Colors.orange,
-                      radius: 100,
-                      titleStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                      PieChartSectionData(
+                        value: 30,
+                        title: '30%',
+                        color: Colors.orange,
+                        radius: 100,
+                        titleStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
-            _buildUsageLegend('Residential', Colors.blue),
-            _buildUsageLegend('Commercial', Colors.green),
-            _buildUsageLegend('Industrial', Colors.orange),
+            const SizedBox(height: 8),
+            Center(
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 16,
+                runSpacing: 4,
+                children: [
+                  _buildUsageLegend('Residential', Colors.blue),
+                  _buildUsageLegend('Commercial', Colors.green),
+                  _buildUsageLegend('Industrial', Colors.orange),
+                ],
+              ),
+            ),
           ],
         ),
       ),

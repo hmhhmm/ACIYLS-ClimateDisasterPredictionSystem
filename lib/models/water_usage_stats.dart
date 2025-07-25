@@ -279,8 +279,9 @@ class QualityRecord {
   String get qualityStatus {
     if (!passesStandards) return 'Failed';
     if (contaminants.isNotEmpty) return 'Warning';
-    if (isPhSafe && isTurbiditySafe && isDissolvedOxygenSafe)
+    if (isPhSafe && isTurbiditySafe && isDissolvedOxygenSafe) {
       return 'Excellent';
+    }
     return 'Good';
   }
 }

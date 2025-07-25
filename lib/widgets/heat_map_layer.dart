@@ -16,12 +16,12 @@ class HeatMapLayer extends StatelessWidget {
   final Color color;
 
   const HeatMapLayer({
-    Key? key,
+    super.key,
     required this.heatMapDataPoints,
     this.radius = 20,
     this.blur = 15,
     this.color = Colors.red,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +63,18 @@ class _HeatMapPainter extends CustomPainter {
     for (final point in points) {
       final pixelPoint = mapState.project(point.latLng);
       final screenPoint = mapState.pixelBounds.topLeft + pixelPoint;
-      
-      if (!Rect.fromLTWH(0, 0, mapState.nonRotatedSize.x, mapState.nonRotatedSize.y)
-          .contains(Offset(screenPoint.x.toDouble(), screenPoint.y.toDouble()))) continue;
+
+      if (!Rect.fromLTWH(
+        0,
+        0,
+        mapState.nonRotatedSize.x,
+        mapState.nonRotatedSize.y,
+      ).contains(Offset(screenPoint.x.toDouble(), screenPoint.y.toDouble()))) {
+        continue;
+      }
 
       final gradient = RadialGradient(
-        colors: [
-          color.withOpacity(point.intensity),
-          color.withOpacity(0),
-        ],
+        colors: [color.withOpacity(point.intensity), color.withOpacity(0)],
       );
 
       final rect = Rect.fromCircle(

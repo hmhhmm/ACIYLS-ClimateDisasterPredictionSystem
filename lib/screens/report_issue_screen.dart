@@ -170,7 +170,7 @@ class ReportIssueScreen extends StatelessWidget {
       children: [
         Text(title, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
-        ...issues.map((issue) => _buildIssueCard(context, issue)).toList(),
+        ...issues.map((issue) => _buildIssueCard(context, issue)),
       ],
     );
   }

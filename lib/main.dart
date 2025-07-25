@@ -21,22 +21,22 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Water & Sanitation Tracker',
         debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.system,
         theme: ThemeData(
-          colorScheme: const ColorScheme(
-            brightness: Brightness.light,
-            primary: Color(0xFF007AFF), // iOS Blue
+          colorScheme: const ColorScheme.light(
+            primary: Color(0xFF007AFF),
             onPrimary: Colors.white,
-            secondary: Color(0xFF5856D6), // iOS Purple
+            secondary: Color(0xFF5856D6),
             onSecondary: Colors.white,
-            error: Color(0xFFFF3B30), // iOS Red
+            error: Color(0xFFFF3B30),
             onError: Colors.white,
             surface: Colors.white,
             onSurface: Color(0xFF000000),
-            background: Color(0xFFF2F2F7), // iOS Light Gray
+            background: Color(0xFFF2F2F7),
             onBackground: Color(0xFF000000),
           ),
           useMaterial3: true,
-          fontFamily: '.SF Pro Text', // iOS System Font
+          fontFamily: '.SF Pro Text',
           textTheme: const TextTheme(
             displayLarge: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
             displayMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
@@ -50,46 +50,23 @@ class MyApp extends StatelessWidget {
             bodyMedium: TextStyle(fontSize: 15),
             labelLarge: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
           ),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.transparent,
-            foregroundColor: Color(0xFF007AFF),
-            elevation: 0,
-            centerTitle: true,
-            titleTextStyle: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF000000),
-            ),
-          ),
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: Colors.white,
-            selectedItemColor: Color(0xFF007AFF),
-            unselectedItemColor: Color(0xFF8E8E93),
-            selectedLabelStyle: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-            ),
-            unselectedLabelStyle: TextStyle(fontSize: 11),
-            elevation: 0,
-            type: BottomNavigationBarType.fixed,
-          ),
-          scaffoldBackgroundColor: const Color(0xFFF2F2F7),
           cardTheme: const CardThemeData(
-            elevation: 0,
+            elevation: 2,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
             color: Colors.white,
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shadowColor: Color(0x22000000),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-              elevation: 0,
+              elevation: 1,
               backgroundColor: const Color(0xFF007AFF),
               foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 50),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(16),
               ),
               textStyle: const TextStyle(
                 fontSize: 17,
@@ -103,7 +80,95 @@ class MyApp extends StatelessWidget {
               minimumSize: const Size(double.infinity, 50),
               side: const BorderSide(color: Color(0xFF007AFF)),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              textStyle: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+        darkTheme: ThemeData(
+          colorScheme: const ColorScheme.dark(
+            primary: Color(0xFF0A84FF),
+            onPrimary: Colors.black,
+            secondary: Color(0xFF5E5CE6),
+            onSecondary: Colors.black,
+            error: Color(0xFFFF453A),
+            onError: Colors.black,
+            surface: Color(0xFF1C1C1E),
+            onSurface: Colors.white,
+            background: Color(0xFF121212),
+            onBackground: Colors.white,
+          ),
+          useMaterial3: true,
+          fontFamily: '.SF Pro Text',
+          textTheme: const TextTheme(
+            displayLarge: TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            displayMedium: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            displaySmall: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            headlineMedium: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+            titleLarge: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+            bodyLarge: TextStyle(fontSize: 17, color: Colors.white),
+            bodyMedium: TextStyle(fontSize: 15, color: Colors.white70),
+            labelLarge: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+          cardTheme: const CardThemeData(
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            color: Color(0xFF23232B),
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shadowColor: Color(0x44000000),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              elevation: 1,
+              backgroundColor: const Color(0xFF0A84FF),
+              foregroundColor: Colors.black,
+              minimumSize: const Size(double.infinity, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              textStyle: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: const Color(0xFF0A84FF),
+              minimumSize: const Size(double.infinity, 50),
+              side: const BorderSide(color: Color(0xFF0A84FF)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
               textStyle: const TextStyle(
                 fontSize: 17,
