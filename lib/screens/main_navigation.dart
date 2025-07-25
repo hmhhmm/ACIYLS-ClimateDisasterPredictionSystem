@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dashboard_screen.dart';
 import 'water_source_map_screen.dart';
 import 'water_response_screen.dart';
 import 'alerts_screen.dart';
@@ -16,7 +15,6 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
   static final List<Widget> _screens = <Widget>[
-    DashboardScreen(),
     WaterSourceMapScreen(),
     WaterResponseScreen(),
     WaterInsightsScreen(),
@@ -42,11 +40,6 @@ class _MainNavigationState extends State<MainNavigation> {
           top: false,
           child: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard_outlined),
-                activeIcon: Icon(Icons.dashboard),
-                label: 'Dashboard',
-              ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.map_outlined),
                 activeIcon: Icon(Icons.map),

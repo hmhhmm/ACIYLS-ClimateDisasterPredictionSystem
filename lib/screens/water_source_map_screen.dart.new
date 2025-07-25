@@ -21,7 +21,8 @@ class WeatherColors {
   
   static final gradientBlue = [
     Color(0xFF1565C0),
-    Color(0xFF42A5F5),
+    Color(0xFF1976D2),
+    Color(0xFF2196F3),
   ];
   
   static final windColors = [
@@ -100,7 +101,7 @@ class _WeatherCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: WeatherColors.cardBg.withOpacity(0.9),
+        color: WeatherColors.cardBg,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -219,35 +220,6 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
     'markers': true,
   };
 
-  Widget _buildWeatherInfoItem({
-    required IconData icon,
-    required String value,
-    required String label,
-    required Color color,
-  }) {
-    return Column(
-      children: [
-        Icon(icon, color: color),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: WeatherColors.textPrimary,
-            fontSize: 14,
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            color: WeatherColors.textSecondary,
-            fontSize: 12,
-          ),
-        ),
-      ],
-    );
-  }
-
   Set<gmaps.Marker> get _weatherMarkers {
     return _weatherData.map((data) {
       return gmaps.Marker(
@@ -337,17 +309,10 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
   Widget build(BuildContext context) {
     final weatherData = _weatherData[0];
     
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: WeatherColors.gradientBlue,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: CustomScrollView(
+    return Scaffold(
+      backgroundColor: WeatherColors.background,
+      body: SafeArea(
+        child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
               expandedHeight: 200,
@@ -356,7 +321,13 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
               backgroundColor: WeatherColors.primary,
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
-                  color: Colors.transparent,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: WeatherColors.gradientBlue,
+                    ),
+                  ),
                   child: SafeArea(
                     child: Stack(
                       children: [
@@ -430,19 +401,19 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _buildWeatherInfoItem(
+                        _WeatherInfoItem(
                           icon: Icons.eco,
                           value: '${weatherData['aqi']}',
                           label: 'AQI',
                           color: WeatherColors.success,
                         ),
-                        _buildWeatherInfoItem(
+                        _WeatherInfoItem(
                           icon: Icons.air,
                           value: '8.2 μg/m³',
                           label: 'PM2.5',
                           color: WeatherColors.success,
                         ),
-                        _buildWeatherInfoItem(
+                        _WeatherInfoItem(
                           icon: Icons.air_outlined,
                           value: '15.4 μg/m³',
                           label: 'PM10',

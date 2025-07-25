@@ -20,7 +20,9 @@ class WeatherColors {
   static const error = Color(0xFFE74C3C);
   
   static final gradientBlue = [
-    Color(0xFF1565C0),
+    Color(0xFF1976D2),
+    Color(0xFF1E88E5),
+    Color(0xFF2196F3),
     Color(0xFF42A5F5),
   ];
   
@@ -205,6 +207,39 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
     }
   ];
 
+  Widget _buildWeatherCard({required String title, required Widget child}) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: WeatherColors.cardBg.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: WeatherColors.primary,
+            ),
+          ),
+          SizedBox(height: 8),
+          child,
+        ],
+      ),
+    );
+  }
+
   final List<Map<String, dynamic>> _heatmapData = [
     {'lat': 35.6762, 'lng': 139.6503, 'intensity': 0.9}, // Tokyo
     {'lat': 35.4437, 'lng': 139.6380, 'intensity': 0.8}, // Yokohama
@@ -218,35 +253,6 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
     'wind': true,
     'markers': true,
   };
-
-  Widget _buildWeatherInfoItem({
-    required IconData icon,
-    required String value,
-    required String label,
-    required Color color,
-  }) {
-    return Column(
-      children: [
-        Icon(icon, color: color),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: WeatherColors.textPrimary,
-            fontSize: 14,
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            color: WeatherColors.textSecondary,
-            fontSize: 12,
-          ),
-        ),
-      ],
-    );
-  }
 
   Set<gmaps.Marker> get _weatherMarkers {
     return _weatherData.map((data) {
@@ -349,6 +355,8 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
         backgroundColor: Colors.transparent,
         body: CustomScrollView(
           slivers: <Widget>[
+        child: CustomScrollView(
+          slivers: <Widget>[
             SliverAppBar(
               expandedHeight: 200,
               floating: false,
@@ -430,19 +438,19 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _buildWeatherInfoItem(
+                        _WeatherInfoItem(
                           icon: Icons.eco,
                           value: '${weatherData['aqi']}',
                           label: 'AQI',
                           color: WeatherColors.success,
                         ),
-                        _buildWeatherInfoItem(
+                        _WeatherInfoItem(
                           icon: Icons.air,
                           value: '8.2 μg/m³',
                           label: 'PM2.5',
                           color: WeatherColors.success,
                         ),
-                        _buildWeatherInfoItem(
+                        _WeatherInfoItem(
                           icon: Icons.air_outlined,
                           value: '15.4 μg/m³',
                           label: 'PM10',
@@ -652,6 +660,7 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
           ],
         ),
       ),
-    );
+    ),
+  )));
   }
 }
