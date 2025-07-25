@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/climate_data.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'water_source_map_screen.dart';
 
 class ClimateMonitoringScreen extends StatefulWidget {
   const ClimateMonitoringScreen({super.key});
@@ -34,28 +35,32 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Climate Monitoring'),
-        bottom: TabBar(
+    return Container(
+      color: WeatherColors.primary,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: const Text('Climate Monitoring'),
+          bottom: TabBar(
+            controller: _tabController,
+            isScrollable: true,
+            tabs: const [
+              Tab(text: 'Overview'),
+              Tab(text: 'Trends'),
+              Tab(text: 'Impacts'),
+              Tab(text: 'Alerts'),
+            ],
+          ),
+        ),
+        body: TabBarView(
           controller: _tabController,
-          isScrollable: true,
-          tabs: const [
-            Tab(text: 'Overview'),
-            Tab(text: 'Trends'),
-            Tab(text: 'Impacts'),
-            Tab(text: 'Alerts'),
+          children: [
+            _buildOverviewTab(),
+            _buildTrendsTab(),
+            _buildImpactsTab(),
+            _buildAlertsTab(),
           ],
         ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildOverviewTab(),
-          _buildTrendsTab(),
-          _buildImpactsTab(),
-          _buildAlertsTab(),
-        ],
       ),
     );
   }
@@ -64,6 +69,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
+        _buildHeaderCard(),
         _buildCurrentConditions(),
         const SizedBox(height: 24),
         _buildRiskAssessment(),
@@ -73,8 +79,59 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     );
   }
 
+  Widget _buildHeaderCard() {
+    return Card(
+      color: Colors.white.withOpacity(0.7),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Kuala Lumpur',
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${_currentData.temperature.toStringAsFixed(0)}°',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 48,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                Text(
+                  ' | Mostly Sunny',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildCurrentConditions() {
     return Card(
+      color: Colors.white.withOpacity(0.7),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -173,6 +230,11 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
 
   Widget _buildRiskAssessment() {
     return Card(
+      color: Colors.white.withOpacity(0.7),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -253,6 +315,11 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     }
 
     return Card(
+      color: Colors.white.withOpacity(0.7),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -307,6 +374,11 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
 
   Widget _buildTemperatureTrend() {
     return Card(
+      color: Colors.white.withOpacity(0.7),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -411,6 +483,11 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
 
   Widget _buildRainfallTrend() {
     return Card(
+      color: Colors.white.withOpacity(0.7),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -511,6 +588,11 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
 
   Widget _buildWaterTableTrend() {
     return Card(
+      color: Colors.white.withOpacity(0.7),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -624,6 +706,11 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
         const SizedBox(height: 16),
         ..._impacts.map(
           (impact) => Card(
+            color: Colors.white.withOpacity(0.7),
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
             margin: const EdgeInsets.only(bottom: 16),
             child: ExpansionTile(
               title: Text(impact.sourceName),
@@ -703,6 +790,11 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
         const SizedBox(height: 16),
         ..._alerts.map(
           (alert) => Card(
+            color: Colors.white.withOpacity(0.7),
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
             margin: const EdgeInsets.only(bottom: 16),
             child: ExpansionTile(
               title: Text(alert.title),

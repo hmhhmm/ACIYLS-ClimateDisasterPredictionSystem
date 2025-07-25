@@ -15,10 +15,8 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
   static final List<Widget> _screens = <Widget>[
-    WaterSourceMapScreen(),
-    WaterResponseScreen(),
-    WaterInsightsScreen(),
     ClimateMonitoringScreen(),
+    WaterResponseScreen(),
     AlertsScreen(),
   ];
 
@@ -41,24 +39,14 @@ class _MainNavigationState extends State<MainNavigation> {
           child: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.map_outlined),
-                activeIcon: Icon(Icons.map),
-                label: 'Map',
+                icon: Icon(Icons.thermostat_outlined),
+                activeIcon: Icon(Icons.thermostat),
+                label: 'Climate',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.water_drop_outlined),
                 activeIcon: Icon(Icons.water_drop),
                 label: 'Water',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.insights_outlined),
-                activeIcon: Icon(Icons.insights),
-                label: 'Insights',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.thermostat_outlined),
-                activeIcon: Icon(Icons.thermostat),
-                label: 'Climate',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_outlined),

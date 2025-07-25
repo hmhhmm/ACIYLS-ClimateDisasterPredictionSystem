@@ -9,6 +9,7 @@ import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_ti
 import '../utils/responsive_utils.dart';
 import 'qr_scanner_screen.dart';
 import 'report_issue_screen.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class WaterResponseScreen extends StatefulWidget {
   const WaterResponseScreen({super.key});
@@ -17,10 +18,12 @@ class WaterResponseScreen extends StatefulWidget {
   State<WaterResponseScreen> createState() => _WaterResponseScreenState();
 }
 
-class _WaterResponseScreenState extends State<WaterResponseScreen> {
+class _WaterResponseScreenState extends State<WaterResponseScreen> with SingleTickerProviderStateMixin {
   final WaterService waterService = WaterService();
   final List<Map<String, dynamic>> _offlineReports = [];
   bool _isOnline = true;
+  late TabController _tabController;
+  int _selectedPeriod = 1;
 
   final List<Map<String, dynamic>> _notifications = [
     {
@@ -47,11 +50,34 @@ class _WaterResponseScreenState extends State<WaterResponseScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 5, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final points = waterService.getWaterPoints();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Water & Sanitation'),
+        bottom: TabBar(
+          controller: _tabController,
+          isScrollable: true,
+          tabs: const [
+            Tab(text: 'Status'),
+            Tab(text: 'Quality'),
+            Tab(text: 'Usage'),
+            Tab(text: 'Community'),
+            Tab(text: 'Tips'),
+          ],
+        ),
         actions: [
           Stack(
             children: [
@@ -84,55 +110,121 @@ class _WaterResponseScreenState extends State<WaterResponseScreen> {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
+      body: TabBarView(
+        controller: _tabController,
         children: [
-          _buildStatusBanner(),
-          const SizedBox(height: 16),
-          _buildActionButtons(),
-          const SizedBox(height: 24),
-          _buildOfflineQueue(),
-          const SizedBox(height: 24),
-          ...points.map(
-            (p) => Card(
-              color: p.status == WaterStatus.available
-                  ? Colors.green[50]
-                  : p.status == WaterStatus.low
-                  ? Colors.orange[50]
-                  : Colors.red[50],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+          _buildStatusTab(points),
+          _buildQualityTab(),
+          _buildUsageTab(),
+          _buildCommunityTab(),
+          _buildTipsTab(),
+        ],
+      ),
+    );
+  }
+
+  // --- Status Tab (original WaterResponseScreen content) ---
+  Widget _buildStatusTab(List points) {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildStatusBanner(),
+        const SizedBox(height: 16),
+        _buildActionButtons(),
+        const SizedBox(height: 24),
+        _buildOfflineQueue(),
+        const SizedBox(height: 24),
+        ...points.map(
+          (p) => Card(
+            color: p.status == WaterStatus.available
+                ? Colors.green[50]
+                : p.status == WaterStatus.low
+                ? Colors.orange[50]
+                : Colors.red[50],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ListTile(
+              title: Text(
+                p.name,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              child: ListTile(
-                title: Text(
-                  p.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: Text('Lat: ${p.latitude}, Lng: ${p.longitude}'),
-                trailing: Text(
-                  p.status == WaterStatus.available
-                      ? 'Available'
+              subtitle: Text('Lat:  {p.latitude}, Lng:  {p.longitude}'),
+              trailing: Text(
+                p.status == WaterStatus.available
+                    ? 'Available'
+                    : p.status == WaterStatus.low
+                    ? 'Low'
+                    : 'Out',
+                style: TextStyle(
+                  color: p.status == WaterStatus.available
+                      ? Colors.green
                       : p.status == WaterStatus.low
-                      ? 'Low'
-                      : 'Out',
-                  style: TextStyle(
-                    color: p.status == WaterStatus.available
-                        ? Colors.green
-                        : p.status == WaterStatus.low
-                        ? Colors.orange
-                        : Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      ? Colors.orange
+                      : Colors.red,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 24),
-          _buildRecentReports(),
-          const SizedBox(height: 24),
-          SizedBox(height: 400, child: _EmbeddedWaterSourceMap()),
-        ],
-      ),
+        ),
+        const SizedBox(height: 24),
+        _buildRecentReports(),
+        const SizedBox(height: 24),
+        SizedBox(height: 400, child: _EmbeddedWaterSourceMap()),
+      ],
+    );
+  }
+
+  // --- Quality Tab (from WaterInsightsScreen) ---
+  Widget _buildQualityTab() {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildQualityOverview(),
+        const SizedBox(height: 24),
+        _buildQualityTrends(),
+        const SizedBox(height: 24),
+        _buildRiskAssessment(),
+      ],
+    );
+  }
+
+  // --- Usage Tab (from WaterInsightsScreen) ---
+  Widget _buildUsageTab() {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildUsageStats(),
+        const SizedBox(height: 24),
+        _buildUsageBreakdown(),
+        const SizedBox(height: 24),
+        _buildConservationTips(),
+      ],
+    );
+  }
+
+  // --- Community Tab (from WaterInsightsScreen) ---
+  Widget _buildCommunityTab() {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildCommunityStats(),
+        const SizedBox(height: 24),
+        _buildLeaderboard(),
+        const SizedBox(height: 24),
+        _buildCommunityEvents(),
+      ],
+    );
+  }
+
+  // --- Tips Tab (from WaterInsightsScreen) ---
+  Widget _buildTipsTab() {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildConservationTips(),
+      ],
     );
   }
 
