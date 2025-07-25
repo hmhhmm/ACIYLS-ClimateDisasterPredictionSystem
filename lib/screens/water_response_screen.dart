@@ -18,7 +18,8 @@ class WaterResponseScreen extends StatefulWidget {
   State<WaterResponseScreen> createState() => _WaterResponseScreenState();
 }
 
-class _WaterResponseScreenState extends State<WaterResponseScreen> with SingleTickerProviderStateMixin {
+class _WaterResponseScreenState extends State<WaterResponseScreen>
+    with SingleTickerProviderStateMixin {
   final WaterService waterService = WaterService();
   final List<Map<String, dynamic>> _offlineReports = [];
   bool _isOnline = true;
@@ -222,9 +223,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen> with SingleTi
   Widget _buildTipsTab() {
     return ListView(
       padding: const EdgeInsets.all(16),
-      children: [
-        _buildConservationTips(),
-      ],
+      children: [_buildConservationTips()],
     );
   }
 
@@ -745,6 +744,736 @@ class _WaterResponseScreenState extends State<WaterResponseScreen> with SingleTi
       default:
         return Colors.grey;
     }
+  }
+
+  Widget _buildQualityOverview() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Water Quality Overview',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            _buildQualityIndicator('pH Level', 7.2, 'Normal'),
+            _buildQualityIndicator('Turbidity', 0.5, 'Good'),
+            _buildQualityIndicator('Chlorine', 1.0, 'Normal'),
+            _buildQualityIndicator('Bacteria Count', 0, 'Excellent'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQualityIndicator(String name, double value, String status) {
+    Color statusColor;
+    switch (status.toLowerCase()) {
+      case 'excellent':
+        statusColor = Colors.green;
+        break;
+      case 'good':
+        statusColor = Colors.blue;
+        break;
+      case 'normal':
+        statusColor = Colors.orange;
+        break;
+      default:
+        statusColor = Colors.red;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(name),
+          Row(
+            children: [
+              Text(value.toString()),
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: statusColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  status,
+                  style: TextStyle(color: statusColor, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQualityTrends() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Quality Trends',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              height: 200,
+              child: LineChart(
+                LineChartData(
+                  gridData: FlGridData(show: false),
+                  titlesData: FlTitlesData(
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
+                        getTitlesWidget: (value, meta) {
+                          return Text(
+                            value.toStringAsFixed(1),
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 30,
+                        getTitlesWidget: (value, meta) {
+                          final index = value.toInt();
+                          if (index % 5 == 0) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Text(
+                                'Day $index',
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                  ),
+                  borderData: FlBorderData(
+                    show: true,
+                    border: Border(
+                      bottom: BorderSide(color: Colors.grey.shade300),
+                      left: BorderSide(color: Colors.grey.shade300),
+                    ),
+                  ),
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: List.generate(
+                        30,
+                        (index) =>
+                            FlSpot(index.toDouble(), 7.0 + (index % 5) * 0.2),
+                      ),
+                      isCurved: true,
+                      color: Colors.blue,
+                      barWidth: 3,
+                      isStrokeCapRound: true,
+                      dotData: FlDotData(show: false),
+                      belowBarData: BarAreaData(
+                        show: true,
+                        color: Colors.blue.withOpacity(0.1),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRiskAssessment() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Risk Assessment',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            _buildRiskIndicator(
+              'Contamination Risk',
+              'Low',
+              Colors.green,
+              'No immediate concerns',
+            ),
+            _buildRiskIndicator(
+              'Supply Risk',
+              'Moderate',
+              Colors.orange,
+              'Monitor usage patterns',
+            ),
+            _buildRiskIndicator(
+              'Infrastructure Risk',
+              'High',
+              Colors.red,
+              'Maintenance required',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRiskIndicator(
+    String title,
+    String level,
+    Color color,
+    String description,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(Icons.warning, color: color),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  description,
+                  style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              level.toUpperCase(),
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUsageStats() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Usage Statistics',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            _buildUsageStat(
+              'Daily Average',
+              '2,500',
+              'liters',
+              Icons.water_drop,
+              Colors.blue,
+            ),
+            _buildUsageStat(
+              'Peak Usage',
+              '180',
+              'liters/hour',
+              Icons.show_chart,
+              Colors.orange,
+            ),
+            _buildUsageStat(
+              'Conservation',
+              '15%',
+              'reduction',
+              Icons.eco,
+              Colors.green,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUsageStat(
+    String title,
+    String value,
+    String unit,
+    IconData icon,
+    Color color,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, color: color),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  '$value $unit',
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUsageBreakdown() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Usage Breakdown',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              height: 200,
+              child: PieChart(
+                PieChartData(
+                  sectionsSpace: 2,
+                  centerSpaceRadius: 40,
+                  sections: [
+                    PieChartSectionData(
+                      value: 40,
+                      title: '40%',
+                      color: Colors.blue,
+                      radius: 100,
+                      titleStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    PieChartSectionData(
+                      value: 30,
+                      title: '30%',
+                      color: Colors.green,
+                      radius: 100,
+                      titleStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    PieChartSectionData(
+                      value: 30,
+                      title: '30%',
+                      color: Colors.orange,
+                      radius: 100,
+                      titleStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildUsageLegend('Residential', Colors.blue),
+            _buildUsageLegend('Commercial', Colors.green),
+            _buildUsageLegend('Industrial', Colors.orange),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUsageLegend(String label, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          ),
+          const SizedBox(width: 8),
+          Text(label),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildConservationTips() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Conservation Tips',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            _buildTip(
+              'Fix Leaky Faucets',
+              'A dripping faucet can waste up to 20 gallons per day',
+              Icons.build,
+              Colors.blue,
+            ),
+            _buildTip(
+              'Water Plants Early',
+              'Water early morning or late evening to reduce evaporation',
+              Icons.wb_sunny,
+              Colors.orange,
+            ),
+            _buildTip(
+              'Install Water-Efficient Fixtures',
+              'Low-flow fixtures can reduce water usage by 30%',
+              Icons.shower,
+              Colors.green,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTip(
+    String title,
+    String description,
+    IconData icon,
+    Color color,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, color: color),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  description,
+                  style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCommunityStats() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Community Impact',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            _buildStatCard('Active Users', '1,234', Icons.people, Colors.blue),
+            _buildStatCard(
+              'Reports Submitted',
+              '456',
+              Icons.assignment,
+              Colors.green,
+            ),
+            _buildStatCard(
+              'Issues Resolved',
+              '89%',
+              Icons.check_circle,
+              Colors.orange,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatCard(
+    String title,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, color: color),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  value,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLeaderboard() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Community Leaders',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            _buildLeaderboardItem('John Doe', '120 points', 1, Colors.amber),
+            _buildLeaderboardItem(
+              'Jane Smith',
+              '115 points',
+              2,
+              Colors.grey.shade400,
+            ),
+            _buildLeaderboardItem(
+              'Bob Johnson',
+              '110 points',
+              3,
+              Colors.brown.shade300,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLeaderboardItem(
+    String name,
+    String points,
+    int rank,
+    Color medalColor,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: medalColor,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                rank.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name, style: const TextStyle(fontWeight: FontWeight.w500)),
+                Text(
+                  points,
+                  style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCommunityEvents() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Upcoming Events',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            _buildEventCard(
+              'Community Cleanup',
+              'Join us in cleaning local water sources',
+              'Saturday, 10:00 AM',
+              Icons.cleaning_services,
+              Colors.blue,
+            ),
+            _buildEventCard(
+              'Water Conservation Workshop',
+              'Learn water-saving techniques',
+              'Sunday, 2:00 PM',
+              Icons.school,
+              Colors.green,
+            ),
+            _buildEventCard(
+              'Infrastructure Inspection',
+              'Volunteer for water point inspection',
+              'Next Week',
+              Icons.build,
+              Colors.orange,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEventCard(
+    String title,
+    String description,
+    String time,
+    IconData icon,
+    Color color,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, color: color),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  description,
+                  style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                ),
+                Text(
+                  time,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

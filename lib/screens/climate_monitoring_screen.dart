@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/climate_data.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'water_source_map_screen.dart';
+
+class WeatherColors {
+  static const Color primary = Color(0xFFF2F2F7);
+}
 
 class ClimateMonitoringScreen extends StatefulWidget {
   const ClimateMonitoringScreen({super.key});
@@ -83,9 +86,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     return Card(
       color: Colors.white.withOpacity(0.7),
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 32),
         child: Column(
@@ -112,10 +113,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                 ),
                 Text(
                   ' | Mostly Sunny',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                  ),
+                  style: const TextStyle(color: Colors.black, fontSize: 20),
                 ),
               ],
             ),
@@ -129,9 +127,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     return Card(
       color: Colors.white.withOpacity(0.7),
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -232,9 +228,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     return Card(
       color: Colors.white.withOpacity(0.7),
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -317,9 +311,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     return Card(
       color: Colors.white.withOpacity(0.7),
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -376,9 +368,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     return Card(
       color: Colors.white.withOpacity(0.7),
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -485,9 +475,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     return Card(
       color: Colors.white.withOpacity(0.7),
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -590,9 +578,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     return Card(
       color: Colors.white.withOpacity(0.7),
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

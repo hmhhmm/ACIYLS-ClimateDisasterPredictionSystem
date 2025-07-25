@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'water_source_map_screen.dart';
 import 'water_response_screen.dart';
 import 'alerts_screen.dart';
-import 'water_insights_screen.dart';
 import 'climate_monitoring_screen.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -15,9 +13,9 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
   static final List<Widget> _screens = <Widget>[
-    ClimateMonitoringScreen(),
-    WaterResponseScreen(),
-    AlertsScreen(),
+    const ClimateMonitoringScreen(),
+    const WaterResponseScreen(),
+    const AlertsScreen(),
   ];
 
   void _onItemTapped(int index) {
