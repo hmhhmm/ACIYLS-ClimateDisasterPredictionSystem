@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_map/flutter_map.dart' as fmap;
 import 'package:latlong2/latlong.dart' as latlong;
 import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
-import '../utils/responsive_utils.dart';
 import 'qr_scanner_screen.dart';
 import 'report_issue_screen.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -24,7 +23,6 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
   final List<Map<String, dynamic>> _offlineReports = [];
   bool _isOnline = true;
   late TabController _tabController;
-  int _selectedPeriod = 1;
 
   final List<Map<String, dynamic>> _notifications = [
     {
@@ -62,104 +60,81 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
     super.dispose();
   }
 
-  // Helper method for dark cards
-  Card _darkCard(BuildContext context, Widget child) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Card(
-      color: isDark ? const Color(0xFF1A1A1A) : Colors.white.withOpacity(0.7),
-      child: DefaultTextStyle(
-        style: TextStyle(
-          color: isDark ? Colors.white : Colors.black,
-        ),
-        child: child,
-      ),
-    );
-  }
-
   // Enhanced card with accent color/gradient
-  Widget _niceCard(BuildContext context, Widget child, {Color? accent, Gradient? gradient}) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+  Widget _niceCard(
+    BuildContext context,
+    Widget child, {
+    Color? accent,
+    Gradient? gradient,
+  }) {
     return Container(
       decoration: BoxDecoration(
-        gradient: gradient ?? LinearGradient(
-          colors: [
-            (accent ?? Colors.blue).withOpacity(isDark ? 0.18 : 0.10),
-            (accent ?? Colors.blue).withOpacity(isDark ? 0.10 : 0.05),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient:
+            gradient ??
+            LinearGradient(
+              colors: [
+                (accent ?? Colors.blue).withValues(alpha: 0.1),
+                (accent ?? Colors.blue).withValues(alpha: 0.05),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: (accent ?? Colors.blue).withOpacity(0.35), width: 1.5),
+        border: Border.all(
+          color: (accent ?? Colors.blue).withValues(alpha: 0.35),
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
-            color: (accent ?? Colors.blue).withOpacity(0.10),
+            color: (accent ?? Colors.blue).withValues(alpha: 0.10),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(18),
-        child: child,
-      ),
+      child: Padding(padding: const EdgeInsets.all(18), child: child),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final points = waterService.getWaterPoints();
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      color: isDark ? Colors.black : null,
+      color: Colors.white,
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text(
             'Water & Sanitation',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          backgroundColor: isDark ? Colors.black : null,
+          backgroundColor: Colors.white,
           elevation: 0,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.blueGrey.shade900.withOpacity(0.95),
-                  Colors.blueGrey.shade800.withOpacity(0.85),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
+          flexibleSpace: Container(color: Colors.white),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(48),
             child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.blueGrey.shade900.withOpacity(0.95),
-                    Colors.blueGrey.shade800.withOpacity(0.85),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(color: Color(0xFFE5E5EA), width: 1),
                 ),
               ),
               child: TabBar(
                 controller: _tabController,
                 isScrollable: false,
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.white70,
+                labelColor: Color(0xFF007AFF),
+                unselectedLabelColor: Colors.black54,
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(width: 2.0, color: Colors.white),
-                  insets: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+                  borderSide: BorderSide(width: 3.0, color: Color(0xFF007AFF)),
+                  insets: EdgeInsets.symmetric(horizontal: 24.0, vertical: 0.0),
                 ),
-                labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 0.5),
+                labelStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  letterSpacing: 0.5,
+                ),
                 tabs: const [
                   Tab(text: 'Status'),
                   Tab(text: 'Quality'),
@@ -191,7 +166,10 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                       ),
                       child: Text(
                         _notifications.length.toString(),
-                        style: const TextStyle(color: Colors.white, fontSize: 10),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -239,11 +217,13 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: (p.status == WaterStatus.available
-                      ? Colors.green
-                      : p.status == WaterStatus.low
-                      ? Colors.orange
-                      : Colors.red).withOpacity(0.2),
+                  color:
+                      (p.status == WaterStatus.available
+                              ? Colors.green
+                              : p.status == WaterStatus.low
+                              ? Colors.orange
+                              : Colors.red)
+                          .withValues(alpha: 0.2),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
@@ -263,19 +243,21 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                     width: 12,
                     height: 12,
                     decoration: BoxDecoration(
-            color: p.status == WaterStatus.available
+                      color: p.status == WaterStatus.available
                           ? Colors.green
-                : p.status == WaterStatus.low
+                          : p.status == WaterStatus.low
                           ? Colors.orange
                           : Colors.red,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: (p.status == WaterStatus.available
-                              ? Colors.green
-                              : p.status == WaterStatus.low
-                              ? Colors.orange
-                              : Colors.red).withOpacity(0.4),
+                          color:
+                              (p.status == WaterStatus.available
+                                      ? Colors.green
+                                      : p.status == WaterStatus.low
+                                      ? Colors.orange
+                                      : Colors.red)
+                                  .withValues(alpha: 0.4),
                           blurRadius: 4,
                           spreadRadius: 1,
                         ),
@@ -288,13 +270,13 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                p.name,
+                          p.name,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Colors.black87,
                           ),
-              ),
+                        ),
                         const SizedBox(height: 4),
                         Text(
                           'Lat: ${p.latitude.toStringAsFixed(4)}, Lng: ${p.longitude.toStringAsFixed(4)}',
@@ -307,21 +289,26 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
-                  color: p.status == WaterStatus.available
-                      ? Colors.green
-                      : p.status == WaterStatus.low
-                      ? Colors.orange
-                      : Colors.red,
+                      color: p.status == WaterStatus.available
+                          ? Colors.green
+                          : p.status == WaterStatus.low
+                          ? Colors.orange
+                          : Colors.red,
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: (p.status == WaterStatus.available
-                              ? Colors.green
-                              : p.status == WaterStatus.low
-                              ? Colors.orange
-                              : Colors.red).withOpacity(0.3),
+                          color:
+                              (p.status == WaterStatus.available
+                                      ? Colors.green
+                                      : p.status == WaterStatus.low
+                                      ? Colors.orange
+                                      : Colors.red)
+                                  .withValues(alpha: 0.3),
                           blurRadius: 4,
                           offset: const Offset(0, 2),
                         ),
@@ -335,9 +322,9 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                           : 'Out',
                       style: const TextStyle(
                         color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.bold,
                         fontSize: 12,
-                ),
+                      ),
                     ),
                   ),
                 ],
@@ -366,9 +353,17 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
         const SizedBox(height: 12),
         _niceCard(context, _buildUsageStatsContent(), accent: Colors.blue),
         const SizedBox(height: 12),
-        _niceCard(context, _buildUsageBreakdownContent(), accent: Colors.purple),
+        _niceCard(
+          context,
+          _buildUsageBreakdownContent(),
+          accent: Colors.purple,
+        ),
         const SizedBox(height: 12),
-        _niceCard(context, _buildConservationTipsContent(), accent: Colors.teal),
+        _niceCard(
+          context,
+          _buildConservationTipsContent(),
+          accent: Colors.teal,
+        ),
       ],
     );
   }
@@ -384,61 +379,6 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
         const SizedBox(height: 24),
         _buildCommunityEvents(),
       ],
-    );
-  }
-
-
-
-  Widget _buildStatusBanner() {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: _isOnline 
-            ? [Colors.green.shade400, Colors.green.shade600]
-            : [Colors.orange.shade400, Colors.orange.shade600],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: (_isOnline ? Colors.green : Colors.orange).withOpacity(0.3),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(
-            _isOnline ? Icons.cloud_done : Icons.cloud_off,
-              color: Colors.white,
-            size: 20,
-          ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-            _isOnline
-                ? 'Connected - Reports will sync immediately'
-                : 'Offline - Reports will sync when connection is restored',
-              style: const TextStyle(
-                color: Colors.white,
-              fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -464,7 +404,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                 ? 'Connected - Reports will sync immediately'
                 : 'Offline - Reports will sync when connection is restored',
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black87,
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -483,7 +423,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF007AFF).withOpacity(0.3),
+                color: const Color(0xFF007AFF).withValues(alpha: 0.3),
                 blurRadius: 12,
                 offset: const Offset(0, 6),
                 spreadRadius: 2,
@@ -491,18 +431,20 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             ],
           ),
           child: ElevatedButton.icon(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const QRScannerScreen()),
-            );
-          },
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const QRScannerScreen(),
+                ),
+              );
+            },
             icon: const Icon(Icons.qr_code_scanner, size: 24),
             label: const Text(
               'Scan QR for Water Unit',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
-          style: ElevatedButton.styleFrom(
+            style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF007AFF),
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
@@ -526,20 +468,20 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             ],
           ),
           child: OutlinedButton.icon(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ReportIssueScreen(),
-              ),
-            );
-          },
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ReportIssueScreen(),
+                ),
+              );
+            },
             icon: const Icon(Icons.report_problem, size: 24),
             label: const Text(
               'Report Issue',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
-          style: OutlinedButton.styleFrom(
+            style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFF007AFF),
               backgroundColor: Colors.transparent,
               side: const BorderSide(color: Color(0xFF007AFF), width: 2),
@@ -618,17 +560,14 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Colors.orange.shade50,
-            Colors.orange.shade100,
-          ],
+          colors: [Colors.orange.shade50, Colors.orange.shade100],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.orange.withOpacity(0.1),
+            color: Colors.orange.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -651,7 +590,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.orange.withOpacity(0.1),
+                    color: Colors.orange.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(
@@ -688,18 +627,21 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.orange.withOpacity(0.2),
+                        color: Colors.orange.withValues(alpha: 0.2),
                         blurRadius: 4,
                         offset: const Offset(0, 2),
                       ),
                     ],
                   ),
                   child: TextButton(
-              onPressed: _syncReports,
+                    onPressed: _syncReports,
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.orange,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -707,8 +649,8 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                     child: const Text(
                       'Sync Now',
                       style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -719,14 +661,14 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
+              ),
             ),
-          ),
             child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _offlineReports.length,
-            itemBuilder: (context, index) {
-              final report = _offlineReports[index];
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _offlineReports.length,
+              itemBuilder: (context, index) {
+                final report = _offlineReports[index];
                 return Container(
                   padding: const EdgeInsets.all(16),
                   child: Row(
@@ -734,7 +676,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Colors.orange.withOpacity(0.1),
+                          color: Colors.orange.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Icon(
@@ -768,8 +710,8 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                       ),
                     ],
                   ),
-              );
-            },
+                );
+              },
             ),
           ),
         ],
@@ -790,7 +732,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.orange.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(
@@ -814,10 +756,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                   ),
                   Text(
                     '${_offlineReports.length} reports waiting to sync',
-                    style: const TextStyle(
-                      color: Colors.black54,
-                      fontSize: 14,
-                    ),
+                    style: const TextStyle(color: Colors.black54, fontSize: 14),
                   ),
                 ],
               ),
@@ -827,7 +766,10 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
               style: TextButton.styleFrom(
                 backgroundColor: Colors.orange,
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -840,48 +782,46 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
           ],
         ),
         const SizedBox(height: 12),
-        ..._offlineReports.map((report) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.orange.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+        ..._offlineReports.map(
+          (report) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.sync, color: Colors.orange, size: 20),
                 ),
-                child: const Icon(
-                  Icons.sync,
-                  color: Colors.orange,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      report['title'],
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.black87,
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        report['title'],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.black87,
+                        ),
                       ),
-                    ),
-                    Text(
-                      report['location'],
-                      style: const TextStyle(
-                        color: Colors.black54,
-                        fontSize: 14,
+                      Text(
+                        report['location'],
+                        style: const TextStyle(
+                          color: Colors.black54,
+                          fontSize: 14,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     );
   }
@@ -915,17 +855,14 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
       margin: const EdgeInsets.only(top: 8),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Colors.blue.shade50,
-            Colors.blue.shade100,
-          ],
+          colors: [Colors.blue.shade50, Colors.blue.shade100],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.1),
+            color: Colors.blue.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -948,7 +885,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.1),
+                    color: Colors.blue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(
@@ -959,7 +896,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                 ),
                 const SizedBox(width: 12),
                 const Text(
-              'Recent Reports',
+                  'Recent Reports',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -975,21 +912,21 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
+              ),
             ),
-          ),
             child: ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: reports.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: reports.length,
               separatorBuilder: (context, index) => Container(
                 height: 1,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 color: Colors.grey.withOpacity(0.2),
               ),
-            itemBuilder: (context, index) {
-              final report = reports[index];
-              final type = report['type'] as String;
-              final status = report['status'] as String;
+              itemBuilder: (context, index) {
+                final report = reports[index];
+                final type = report['type'] as String;
+                final status = report['status'] as String;
                 return Container(
                   padding: const EdgeInsets.all(16),
                   child: Row(
@@ -997,22 +934,26 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: _getReportTypeColor(type).withOpacity(0.1),
+                          color: _getReportTypeColor(
+                            type,
+                          ).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
-                              color: _getReportTypeColor(type).withOpacity(0.2),
+                              color: _getReportTypeColor(
+                                type,
+                              ).withValues(alpha: 0.2),
                               blurRadius: 4,
                               offset: const Offset(0, 2),
                             ),
                           ],
                         ),
-                  child: Icon(
-                    _getReportTypeIcon(type),
-                    color: _getReportTypeColor(type),
+                        child: Icon(
+                          _getReportTypeIcon(type),
+                          color: _getReportTypeColor(type),
                           size: 20,
-                  ),
-                ),
+                        ),
+                      ),
                       const SizedBox(width: 16),
                       Expanded(
                         child: Column(
@@ -1038,34 +979,36 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                         ),
                       ),
                       Container(
-                  padding: const EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 12,
                           vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
+                        ),
+                        decoration: BoxDecoration(
                           color: _getStatusColor(status),
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: _getStatusColor(status).withOpacity(0.3),
+                              color: _getStatusColor(
+                                status,
+                              ).withValues(alpha: 0.3),
                               blurRadius: 4,
                               offset: const Offset(0, 2),
                             ),
                           ],
-                  ),
-                  child: Text(
-                    status,
+                        ),
+                        child: Text(
+                          status,
                           style: const TextStyle(
                             color: Colors.white,
-                      fontSize: 12,
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                          ),
+                        ),
                       ),
                     ],
-                ),
-              );
-            },
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -1117,7 +1060,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                     leading: CircleAvatar(
                       backgroundColor: _getNotificationColor(
                         type,
-                      ).withOpacity(0.1),
+                      ).withValues(alpha: 0.1),
                       child: Icon(
                         notification['icon'] as IconData,
                         color: _getNotificationColor(type),
@@ -1240,7 +1183,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
 
   Widget _buildIssueButton(Map<String, dynamic> issue) {
     return Material(
-      color: issue['color'].withOpacity(0.1),
+      color: issue['color'].withValues(alpha: 0.1),
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: () => _showReportDetailsDialog(issue),
@@ -1412,73 +1355,6 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
     }
   }
 
-  Widget _buildQualityOverview() {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.cyan.shade50,
-            Colors.cyan.shade100,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.cyan.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.9),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.cyan.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.water_drop,
-                    color: Colors.cyan,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'Water Quality Overview',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            _buildQualityIndicatorContent('pH Level', 7.2, 'Normal'),
-            _buildQualityIndicatorContent('Turbidity', 0.5, 'Good'),
-            _buildQualityIndicatorContent('Chlorine', 1.0, 'Normal'),
-            _buildQualityIndicatorContent('Bacteria Count', 0, 'Excellent'),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildQualityOverviewContent() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1488,22 +1364,19 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.cyan.withOpacity(0.1),
+                color: Colors.cyan.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(
-                Icons.water_drop,
-                color: Colors.cyan,
-                size: 24,
-              ),
+              child: const Icon(Icons.water_drop, color: Colors.cyan, size: 24),
             ),
             const SizedBox(width: 12),
             Text(
               'Water Quality Overview',
-              style: TextStyle(
-                fontSize: 20,
+              style: const TextStyle(
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+                color: Colors.black,
+                letterSpacing: 0.2,
               ),
             ),
           ],
@@ -1517,7 +1390,11 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
     );
   }
 
-  Widget _buildQualityIndicatorContent(String name, double value, String status) {
+  Widget _buildQualityIndicatorContent(
+    String name,
+    double value,
+    String status,
+  ) {
     Color statusColor;
     switch (status.toLowerCase()) {
       case 'excellent':
@@ -1540,18 +1417,19 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
         children: [
           Text(
             name,
-            style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-              fontSize: 16,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
             ),
           ),
           Row(
             children: [
               Text(
                 value.toString(),
-                style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-                  fontSize: 16,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -1559,157 +1437,21 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: statusColor.withOpacity(0.1),
+                  color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
                   status,
-                  style: TextStyle(color: statusColor, fontSize: 12, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: statusColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildQualityTrends() {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.indigo.shade50,
-            Colors.indigo.shade100,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.indigo.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.9),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.indigo.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.trending_up,
-                    color: Colors.indigo,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 12),
-            Text(
-              'Quality Trends',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              height: 200,
-              child: LineChart(
-                LineChartData(
-                  gridData: FlGridData(show: false),
-                  titlesData: FlTitlesData(
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 40,
-                        getTitlesWidget: (value, meta) {
-                          return Text(
-                            value.toStringAsFixed(1),
-                            style: TextStyle(
-                              color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
-                              fontSize: 12,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 30,
-                        getTitlesWidget: (value, meta) {
-                          final labels = ['Day 0', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25'];
-                          if (value.toInt() < labels.length) {
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: Text(
-                                labels[value.toInt()],
-                                style: TextStyle(
-                                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            );
-                          }
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                    ),
-                    rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  ),
-                  borderData: FlBorderData(
-                    show: true,
-                    border: Border(
-                      bottom: BorderSide(color: Colors.grey.shade300),
-                      left: BorderSide(color: Colors.grey.shade300),
-                    ),
-                  ),
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: [
-                        const FlSpot(0, 7.2),
-                        const FlSpot(1, 7.3),
-                        const FlSpot(2, 7.1),
-                        const FlSpot(3, 7.4),
-                        const FlSpot(4, 7.2),
-                        const FlSpot(5, 7.5),
-                      ],
-                      isCurved: true,
-                      color: Colors.indigo,
-                      barWidth: 3,
-                      isStrokeCapRound: true,
-                      dotData: FlDotData(show: false),
-                      belowBarData: BarAreaData(
-                        show: true,
-                        color: Colors.indigo.withOpacity(0.1),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -1723,7 +1465,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.indigo.withOpacity(0.1),
+                color: Colors.indigo.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(
@@ -1735,10 +1477,11 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             const SizedBox(width: 12),
             Text(
               'Quality Trends',
-              style: TextStyle(
-                fontSize: 20,
+              style: const TextStyle(
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+                color: Colors.black,
+                letterSpacing: 0.2,
               ),
             ),
           ],
@@ -1757,8 +1500,8 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                     getTitlesWidget: (value, meta) {
                       return Text(
                         value.toStringAsFixed(1),
-                        style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                        style: const TextStyle(
+                          color: Colors.grey,
                           fontSize: 12,
                         ),
                       );
@@ -1770,14 +1513,21 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                     showTitles: true,
                     reservedSize: 30,
                     getTitlesWidget: (value, meta) {
-                      final labels = ['Day 0', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25'];
+                      final labels = [
+                        'Day 0',
+                        'Day 5',
+                        'Day 10',
+                        'Day 15',
+                        'Day 20',
+                        'Day 25',
+                      ];
                       if (value.toInt() < labels.length) {
                         return Padding(
                           padding: const EdgeInsets.only(top: 8),
                           child: Text(
                             labels[value.toInt()],
-                            style: TextStyle(
-                              color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                            style: const TextStyle(
+                              color: Colors.grey,
                               fontSize: 12,
                             ),
                           ),
@@ -1787,8 +1537,12 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                     },
                   ),
                 ),
-                rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                rightTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                topTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
               ),
               borderData: FlBorderData(
                 show: true,
@@ -1814,7 +1568,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
                   dotData: FlDotData(show: false),
                   belowBarData: BarAreaData(
                     show: true,
-                    color: Colors.indigo.withOpacity(0.1),
+                    color: Colors.indigo.withValues(alpha: 0.1),
                   ),
                 ),
               ],
@@ -1822,74 +1576,6 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildRiskAssessment() {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.green.shade50,
-            Colors.green.shade100,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.green.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.9),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.security,
-                    color: Colors.green,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'Risk Assessment',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Water quality is within safe parameters. No immediate risks detected.',
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -1902,22 +1588,19 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
+                color: Colors.green.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(
-                Icons.security,
-                color: Colors.green,
-                size: 24,
-              ),
+              child: const Icon(Icons.security, color: Colors.green, size: 24),
             ),
             const SizedBox(width: 12),
             Text(
               'Risk Assessment',
-              style: TextStyle(
-                fontSize: 20,
+              style: const TextStyle(
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+                color: Colors.black,
+                letterSpacing: 0.2,
               ),
             ),
           ],
@@ -1925,10 +1608,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
         const SizedBox(height: 20),
         Text(
           'Water quality is within safe parameters. No immediate risks detected.',
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54,
-            fontSize: 16,
-          ),
+          style: const TextStyle(color: Colors.black54, fontSize: 16),
         ),
       ],
     );
@@ -1943,22 +1623,18 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(
-                Icons.analytics,
-                color: Colors.blue,
-                size: 24,
-              ),
+              child: const Icon(Icons.analytics, color: Colors.blue, size: 24),
             ),
             const SizedBox(width: 12),
             Text(
               'Usage Statistics',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+                color: Colors.black87,
               ),
             ),
           ],
@@ -1966,10 +1642,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
         const SizedBox(height: 20),
         Text(
           'Daily average: 150L per person\nWeekly total: 1,050L\nMonthly trend: Stable',
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54,
-            fontSize: 16,
-          ),
+          style: const TextStyle(color: Colors.black54, fontSize: 16),
         ),
       ],
     );
@@ -1984,7 +1657,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.purple.withOpacity(0.1),
+                color: Colors.purple.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(
@@ -1999,7 +1672,9 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black87,
               ),
             ),
           ],
@@ -2008,7 +1683,9 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
         Text(
           'Drinking: 30%\nBathing: 25%\nCooking: 20%\nCleaning: 15%\nOther: 10%',
           style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white70
+                : Colors.black54,
             fontSize: 16,
           ),
         ),
@@ -2025,22 +1702,18 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.teal.withOpacity(0.1),
+                color: Colors.teal.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(
-                Icons.lightbulb,
-                color: Colors.teal,
-                size: 24,
-              ),
+              child: const Icon(Icons.lightbulb, color: Colors.teal, size: 24),
             ),
             const SizedBox(width: 12),
             Text(
               'Conservation Tips',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+                color: Colors.black87,
               ),
             ),
           ],
@@ -2048,10 +1721,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
         const SizedBox(height: 20),
         Text(
           '• Fix leaky faucets promptly\n• Take shorter showers\n• Use water-efficient appliances\n• Collect rainwater for plants',
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54,
-            fontSize: 16,
-          ),
+          style: const TextStyle(color: Colors.black54, fontSize: 16),
         ),
       ],
     );
@@ -2101,7 +1771,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: color),
@@ -2260,7 +1930,7 @@ class _WaterResponseScreenState extends State<WaterResponseScreen>
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: color),

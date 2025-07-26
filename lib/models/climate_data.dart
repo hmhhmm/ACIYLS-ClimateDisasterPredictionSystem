@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math'; // Added for Random
 
 enum ClimateRiskLevel {
   low,
@@ -85,23 +86,52 @@ class ClimateData {
 
   // Mock historical data
   static List<ClimateData> getMockHistoricalData(int days) {
+    final random = Random(42); // Seeded for repeatability
+    double temp = 26.0;
+    double humidity = 70.0;
+    double rainfall = 2.0;
+    double windSpeed = 8.0;
+    double soilMoisture = 35.0;
+    double waterTableLevel = -2.0;
     return List.generate(days, (index) {
       final date = DateTime.now().subtract(Duration(days: days - index - 1));
+      // Add plausible daily variation
+      temp += random.nextDouble() * 1.5 - 0.7; // small up/down
+      humidity += random.nextDouble() * 2.0 - 1.0;
+      rainfall = random.nextDouble() < 0.2
+          ? random.nextDouble() * 30
+          : random.nextDouble() * 3; // occasional heavy rain
+      windSpeed += random.nextDouble() * 0.8 - 0.4;
+      soilMoisture += (rainfall - 2.0) * 0.2 + random.nextDouble() * 0.5 - 0.25;
+      soilMoisture = soilMoisture.clamp(20.0, 60.0);
+      waterTableLevel +=
+          (rainfall > 10 ? 0.05 : -0.01) + random.nextDouble() * 0.02 - 0.01;
+      // Risk levels based on actual values
+      final floodRisk = rainfall > 20
+          ? ClimateRiskLevel.high
+          : rainfall > 10
+          ? ClimateRiskLevel.moderate
+          : ClimateRiskLevel.low;
+      final droughtRisk = soilMoisture < 25
+          ? ClimateRiskLevel.high
+          : soilMoisture < 32
+          ? ClimateRiskLevel.moderate
+          : ClimateRiskLevel.low;
       return ClimateData(
         timestamp: date,
-        temperature: 25.0 + (index % 5),
-        humidity: 60.0 + (index % 10),
-        rainfall: (index % 7) * 5.0,
-        windSpeed: 10.0 + (index % 8),
-        soilMoisture: 30.0 + (index % 10),
-        waterTableLevel: -2.0 - (index % 3) * 0.5,
-        floodRisk: index % 5 == 0
-            ? ClimateRiskLevel.high
-            : ClimateRiskLevel.low,
-        droughtRisk: index % 7 == 0
-            ? ClimateRiskLevel.moderate
-            : ClimateRiskLevel.low,
-        activeAlerts: index % 3 == 0 ? ['Mock Alert ${index + 1}'] : [],
+        temperature: temp.clamp(22.0, 38.0),
+        humidity: humidity.clamp(40.0, 95.0),
+        rainfall: rainfall,
+        windSpeed: windSpeed.clamp(2.0, 18.0),
+        soilMoisture: soilMoisture,
+        waterTableLevel: waterTableLevel,
+        floodRisk: floodRisk,
+        droughtRisk: droughtRisk,
+        activeAlerts:
+            floodRisk == ClimateRiskLevel.high ||
+                droughtRisk == ClimateRiskLevel.high
+            ? ['Severe Alert']
+            : [],
       );
     });
   }

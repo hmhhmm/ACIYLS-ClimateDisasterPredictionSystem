@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Water & Sanitation Tracker',
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         theme: ThemeData(
           colorScheme: const ColorScheme.light(
             primary: Color(0xFF007AFF),
@@ -32,23 +32,44 @@ class MyApp extends StatelessWidget {
             onError: Colors.white,
             surface: Colors.white,
             onSurface: Color(0xFF000000),
-            background: Color(0xFFF2F2F7),
+            background: Color(0xFFFFFFFF),
             onBackground: Color(0xFF000000),
           ),
           useMaterial3: true,
           fontFamily: '.SF Pro Text',
           textTheme: const TextTheme(
-            displayLarge: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
-            displayMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            displaySmall: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            displayLarge: TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            displayMedium: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            displaySmall: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
             headlineMedium: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
-            titleLarge: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-            bodyLarge: TextStyle(fontSize: 17),
-            bodyMedium: TextStyle(fontSize: 15),
-            labelLarge: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+            titleLarge: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+            bodyLarge: TextStyle(fontSize: 17, color: Colors.black),
+            bodyMedium: TextStyle(fontSize: 15, color: Colors.black87),
+            labelLarge: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
           ),
           cardTheme: const CardThemeData(
             elevation: 2,
@@ -79,94 +100,6 @@ class MyApp extends StatelessWidget {
               foregroundColor: const Color(0xFF007AFF),
               minimumSize: const Size(double.infinity, 50),
               side: const BorderSide(color: Color(0xFF007AFF)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              textStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ),
-        darkTheme: ThemeData(
-          colorScheme: const ColorScheme.dark(
-            primary: Color(0xFF0A84FF),
-            onPrimary: Colors.white,
-            secondary: Color(0xFF5E5CE6),
-            onSecondary: Colors.white,
-            error: Color(0xFFFF453A),
-            onError: Colors.white,
-            surface: Color(0xFF1C1C1E),
-            onSurface: Colors.white,
-            background: Color(0xFF000000),
-            onBackground: Colors.white,
-          ),
-          useMaterial3: true,
-          fontFamily: '.SF Pro Text',
-          textTheme: const TextTheme(
-            displayLarge: TextStyle(
-              fontSize: 34,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-            displayMedium: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-            displaySmall: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-            headlineMedium: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-            titleLarge: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-            bodyLarge: TextStyle(fontSize: 17, color: Colors.white),
-            bodyMedium: TextStyle(fontSize: 15, color: Colors.white70),
-            labelLarge: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
-          ),
-          cardTheme: const CardThemeData(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
-            color: Color(0xFF1A1A1A),
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            shadowColor: Color(0x44000000),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              elevation: 1,
-              backgroundColor: const Color(0xFF0A84FF),
-              foregroundColor: Colors.black,
-              minimumSize: const Size(double.infinity, 50),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              textStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          outlinedButtonTheme: OutlinedButtonThemeData(
-            style: OutlinedButton.styleFrom(
-              foregroundColor: const Color(0xFF0A84FF),
-              minimumSize: const Size(double.infinity, 50),
-              side: const BorderSide(color: Color(0xFF0A84FF)),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),

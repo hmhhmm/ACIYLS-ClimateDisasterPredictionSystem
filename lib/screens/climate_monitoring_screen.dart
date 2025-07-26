@@ -18,11 +18,19 @@ class RuleBasedPredictionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Rule-based Prediction', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.black,
-        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
+          'Rule-based Prediction',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+            letterSpacing: 0.2,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -79,7 +87,11 @@ class RuleBasedPredictionScreen extends StatelessWidget {
               children: [
                 const Text(
                   'Rule Engine Status',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 _buildStatusItem('Active Rules', '12', Colors.green),
@@ -91,7 +103,10 @@ class RuleBasedPredictionScreen extends StatelessWidget {
                     // Show rule configuration
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  child: const Text('Configure Rules', style: TextStyle(color: Colors.white)),
+                  child: const Text(
+                    'Configure Rules',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
@@ -101,36 +116,61 @@ class RuleBasedPredictionScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPredictionCard(BuildContext context, String title, String rule, IconData icon, Color color, String current, String status) {
+  Widget _buildPredictionCard(
+    BuildContext context,
+    String title,
+    String rule,
+    IconData icon,
+    Color color,
+    String current,
+    String status,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1A1A),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withOpacity(0.15)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(icon, color: color, size: 24),
+              Icon(icon, color: color, size: 28),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.1,
+                  ),
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.2),
+                  color: color.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   status,
-                  style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.1,
+                  ),
                 ),
               ),
             ],
@@ -138,12 +178,20 @@ class RuleBasedPredictionScreen extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             rule,
-            style: const TextStyle(color: Colors.white70, fontSize: 14),
+            style: const TextStyle(
+              color: Colors.black54,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           const SizedBox(height: 8),
           Text(
             current,
-            style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              color: color,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
@@ -157,7 +205,10 @@ class RuleBasedPredictionScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: const TextStyle(color: Colors.white70)),
-          Text(value, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+          Text(
+            value,
+            style: TextStyle(color: color, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
@@ -169,9 +220,12 @@ class MLModelPredictionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('ML Model Prediction', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'ML Model Prediction',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.black,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -190,7 +244,11 @@ class MLModelPredictionScreen extends StatelessWidget {
               children: [
                 const Text(
                   'Model Performance',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 _buildMetricRow('Accuracy', '87.3%', Colors.green),
@@ -214,7 +272,11 @@ class MLModelPredictionScreen extends StatelessWidget {
               children: [
                 const Text(
                   'Prediction Confidence',
-                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Expanded(
@@ -229,7 +291,10 @@ class MLModelPredictionScreen extends StatelessWidget {
                             getTitlesWidget: (value, meta) {
                               return Text(
                                 '${(value * 100).toInt()}%',
-                                style: const TextStyle(color: Colors.white70, fontSize: 12),
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 12,
+                                ),
                               );
                             },
                           ),
@@ -239,19 +304,34 @@ class MLModelPredictionScreen extends StatelessWidget {
                             showTitles: true,
                             reservedSize: 30,
                             getTitlesWidget: (value, meta) {
-                              final labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                              final labels = [
+                                'Mon',
+                                'Tue',
+                                'Wed',
+                                'Thu',
+                                'Fri',
+                                'Sat',
+                                'Sun',
+                              ];
                               if (value.toInt() < labels.length) {
                                 return Text(
                                   labels[value.toInt()],
-                                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 12,
+                                  ),
                                 );
                               }
                               return const SizedBox.shrink();
                             },
                           ),
                         ),
-                        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
                       ),
                       borderData: FlBorderData(show: false),
                       lineBarsData: [
@@ -295,11 +375,19 @@ class MLModelPredictionScreen extends StatelessWidget {
               children: [
                 const Text(
                   'Next 7 Days Predictions',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 _buildPredictionItem('Flood Risk', 'Low (15%)', Colors.green),
-                _buildPredictionItem('Drought Risk', 'Medium (45%)', Colors.orange),
+                _buildPredictionItem(
+                  'Drought Risk',
+                  'Medium (45%)',
+                  Colors.orange,
+                ),
                 _buildPredictionItem('Heat Wave', 'High (78%)', Colors.red),
                 _buildPredictionItem('Storm Risk', 'Low (22%)', Colors.blue),
               ],
@@ -313,8 +401,13 @@ class MLModelPredictionScreen extends StatelessWidget {
                   onPressed: () {
                     // Retrain model
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-                  child: const Text('Retrain Model', style: TextStyle(color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple,
+                  ),
+                  child: const Text(
+                    'Retrain Model',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
@@ -323,8 +416,13 @@ class MLModelPredictionScreen extends StatelessWidget {
                   onPressed: () {
                     // Export predictions
                   },
-                  style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.white)),
-                  child: const Text('Export Data', style: TextStyle(color: Colors.white)),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.white),
+                  ),
+                  child: const Text(
+                    'Export Data',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ],
@@ -341,7 +439,10 @@ class MLModelPredictionScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: const TextStyle(color: Colors.white70)),
-          Text(value, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+          Text(
+            value,
+            style: TextStyle(color: color, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
@@ -362,7 +463,11 @@ class MLModelPredictionScreen extends StatelessWidget {
             ),
             child: Text(
               value,
-              style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: color,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -376,11 +481,14 @@ class ScenarioAnalysisScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Scenario Analysis', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.black,
-        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
+          'Scenario Analysis',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -388,16 +496,20 @@ class ScenarioAnalysisScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.teal.withOpacity(0.3)),
+              border: Border.all(color: Colors.teal.withOpacity(0.15)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'Climate Scenarios',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 _buildScenarioCard(
@@ -440,7 +552,11 @@ class ScenarioAnalysisScreen extends StatelessWidget {
               children: [
                 const Text(
                   'Impact Comparison',
-                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Expanded(
@@ -455,7 +571,10 @@ class ScenarioAnalysisScreen extends StatelessWidget {
                             getTitlesWidget: (value, meta) {
                               return Text(
                                 '${value.toInt()}%',
-                                style: const TextStyle(color: Colors.white70, fontSize: 12),
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 12,
+                                ),
                               );
                             },
                           ),
@@ -469,15 +588,22 @@ class ScenarioAnalysisScreen extends StatelessWidget {
                               if (value.toInt() < labels.length) {
                                 return Text(
                                   labels[value.toInt()],
-                                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 12,
+                                  ),
                                 );
                               }
                               return const SizedBox.shrink();
                             },
                           ),
                         ),
-                        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
                       ),
                       borderData: FlBorderData(show: false),
                       barGroups: [
@@ -531,13 +657,33 @@ class ScenarioAnalysisScreen extends StatelessWidget {
               children: [
                 const Text(
                   'Recommended Actions',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 16),
-                _buildActionItem('Water Conservation', 'Implement strict water usage policies', Icons.water_drop),
-                _buildActionItem('Infrastructure', 'Strengthen flood defenses', Icons.build),
-                _buildActionItem('Agriculture', 'Switch to drought-resistant crops', Icons.agriculture),
-                _buildActionItem('Emergency Plans', 'Update evacuation procedures', Icons.emergency),
+                _buildActionItem(
+                  'Water Conservation',
+                  'Implement strict water usage policies',
+                  Icons.water_drop,
+                ),
+                _buildActionItem(
+                  'Infrastructure',
+                  'Strengthen flood defenses',
+                  Icons.build,
+                ),
+                _buildActionItem(
+                  'Agriculture',
+                  'Switch to drought-resistant crops',
+                  Icons.agriculture,
+                ),
+                _buildActionItem(
+                  'Emergency Plans',
+                  'Update evacuation procedures',
+                  Icons.emergency,
+                ),
               ],
             ),
           ),
@@ -550,14 +696,23 @@ class ScenarioAnalysisScreen extends StatelessWidget {
               backgroundColor: Colors.teal,
               minimumSize: const Size(double.infinity, 50),
             ),
-            child: const Text('Generate Detailed Report', style: TextStyle(color: Colors.white, fontSize: 16)),
+            child: const Text(
+              'Generate Detailed Report',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildScenarioCard(String title, String conditions, String impact, Color color, IconData icon) {
+  Widget _buildScenarioCard(
+    String title,
+    String conditions,
+    String impact,
+    Color color,
+    IconData icon,
+  ) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -575,7 +730,11 @@ class ScenarioAnalysisScreen extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(color: color, fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   conditions,
@@ -606,7 +765,11 @@ class ScenarioAnalysisScreen extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   description,
@@ -625,14 +788,17 @@ class ClimateMonitoringScreen extends StatefulWidget {
   const ClimateMonitoringScreen({super.key});
 
   @override
-  State<ClimateMonitoringScreen> createState() => _ClimateMonitoringScreenState();
+  State<ClimateMonitoringScreen> createState() =>
+      _ClimateMonitoringScreenState();
 }
 
 class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final ClimateData _currentData = ClimateData.getMockData();
-  final List<ClimateData> _historicalData = ClimateData.getMockHistoricalData(30);
+  final List<ClimateData> _historicalData = ClimateData.getMockHistoricalData(
+    30,
+  );
   final List<WaterSourceImpact> _impacts = WaterSourceImpact.getMockImpacts();
   final List<ClimateAlert> _alerts = ClimateAlert.getMockAlerts();
   final List<Map<String, dynamic>> _communityHazardReports = [];
@@ -651,35 +817,41 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     super.dispose();
   }
 
-  // Helper method for dark cards
+  // Helper method for cards
   Card _darkCard(BuildContext context, Widget child) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Card(
-      color: isDark ? const Color(0xFF1A1A1A) : Colors.white.withOpacity(0.7),
+      color: Colors.white.withOpacity(0.7),
       child: DefaultTextStyle(
-        style: TextStyle(
-          color: isDark ? Colors.white : Colors.black,
-        ),
+        style: const TextStyle(color: Colors.black),
         child: child,
       ),
     );
   }
 
   // Enhanced card with accent color/gradient
-  Widget _niceCard(BuildContext context, Widget child, {Color? accent, Gradient? gradient}) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+  Widget _niceCard(
+    BuildContext context,
+    Widget child, {
+    Color? accent,
+    Gradient? gradient,
+  }) {
     return Container(
       decoration: BoxDecoration(
-        gradient: gradient ?? LinearGradient(
-          colors: [
-            (accent ?? Colors.blue).withOpacity(isDark ? 0.18 : 0.10),
-            (accent ?? Colors.blue).withOpacity(isDark ? 0.10 : 0.05),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient:
+            gradient ??
+            LinearGradient(
+              colors: [
+                (accent ?? Colors.blue).withOpacity(0.10),
+                (accent ?? Colors.blue).withOpacity(0.05),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: (accent ?? Colors.blue).withOpacity(0.35), width: 1.5),
+        border: Border.all(
+          color: (accent ?? Colors.blue).withOpacity(0.35),
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
             color: (accent ?? Colors.blue).withOpacity(0.10),
@@ -688,10 +860,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(18),
-        child: child,
-      ),
+      child: Padding(padding: const EdgeInsets.all(18), child: child),
     );
   }
 
@@ -734,57 +903,48 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      color: isDark ? Colors.black : WeatherColors.primary,
+      color: WeatherColors.primary,
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text('Climate Monitoring', style: TextStyle(color: Colors.white)),
+          title: const Text(
+            'Climate Monitoring',
+            style: TextStyle(color: Colors.black),
+          ),
           centerTitle: true,
-          backgroundColor: isDark ? Colors.black : null,
-      elevation: 0,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.blueGrey.shade900.withOpacity(0.95),
-                  Colors.blueGrey.shade800.withOpacity(0.85),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                    ),
-                  ),
-                ),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          flexibleSpace: Container(color: Colors.white),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(48),
             child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.blueGrey.shade900.withOpacity(0.95),
-                    Colors.blueGrey.shade800.withOpacity(0.85),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(color: Color(0xFFE5E5EA), width: 1),
                 ),
               ),
-                            child: TabBar(
+              child: TabBar(
                 controller: _tabController,
                 isScrollable: false,
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.white70,
+                labelColor: Color(0xFF007AFF),
+                unselectedLabelColor: Colors.black54,
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(width: 2.0, color: Colors.white),
-                  insets: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+                  borderSide: BorderSide(width: 3.0, color: Color(0xFF007AFF)),
+                  insets: EdgeInsets.symmetric(horizontal: 24.0, vertical: 0.0),
                 ),
-                labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 0.5),
-            tabs: const [
-              Tab(text: 'Overview'),
-              Tab(text: 'Trends'),
-              Tab(text: 'Risk Map'),
-              Tab(text: 'Prediction'),
-            ],
+                labelStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  letterSpacing: 0.5,
+                ),
+                tabs: const [
+                  Tab(text: 'Overview'),
+                  Tab(text: 'Trends'),
+                  Tab(text: 'Risk Map'),
+                  Tab(text: 'Prediction'),
+                ],
               ),
             ),
           ),
@@ -796,13 +956,29 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
             ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                _niceCard(context, _buildHeaderCardContent(), accent: Colors.blue),
+                _niceCard(
+                  context,
+                  _buildHeaderCardContent(),
+                  accent: Colors.blue,
+                ),
                 const SizedBox(height: 12),
-                _niceCard(context, _buildCurrentConditionsContent(), accent: Colors.cyan),
+                _niceCard(
+                  context,
+                  _buildCurrentConditionsContent(),
+                  accent: Colors.cyan,
+                ),
                 const SizedBox(height: 12),
-                _niceCard(context, _buildRiskAssessmentContent(), accent: Colors.green),
+                _niceCard(
+                  context,
+                  _buildRiskAssessmentContent(),
+                  accent: Colors.green,
+                ),
                 const SizedBox(height: 12),
-                _niceCard(context, _buildActiveAlertsContent(), accent: Colors.orange),
+                _niceCard(
+                  context,
+                  _buildActiveAlertsContent(),
+                  accent: Colors.orange,
+                ),
               ],
             ),
             // Trends Tab
@@ -819,22 +995,34 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         DropdownMenuItem(value: '30d', child: Text('30 days')),
                         DropdownMenuItem(value: '1y', child: Text('1 year')),
                       ],
-                      onChanged: (v) => setState(() => _trendRange = v ?? '30d'),
+                      onChanged: (v) =>
+                          setState(() => _trendRange = v ?? '30d'),
                     ),
                   ],
                 ),
                 const SizedBox(height: 8),
-                _darkCard(context, Padding(
+                _darkCard(
+                  context,
+                  Padding(
                     padding: const EdgeInsets.all(12),
                     child: Text(
                       _trendInsight(),
                       style: const TextStyle(fontSize: 15),
                     ),
-                )),
+                  ),
+                ),
                 const SizedBox(height: 8),
-                _buildRiskTrendChart('Flood Risk Trend', _getTrendData('flood'), Colors.red),
+                _buildRiskTrendChart(
+                  'Flood Risk Trend',
+                  _getTrendData('flood'),
+                  Colors.red,
+                ),
                 const SizedBox(height: 8),
-                _buildRiskTrendChart('Drought Risk Trend', _getTrendData('drought'), Colors.orange),
+                _buildRiskTrendChart(
+                  'Drought Risk Trend',
+                  _getTrendData('drought'),
+                  Colors.orange,
+                ),
                 const SizedBox(height: 8),
                 _buildTemperatureTrend(),
                 const SizedBox(height: 8),
@@ -853,9 +1041,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
             // Prediction Tab
             ListView(
               padding: const EdgeInsets.all(16),
-                        children: [
-                _buildPredictionContent(),
-              ],
+              children: [_buildPredictionContent()],
             ),
           ],
         ),
@@ -866,86 +1052,130 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
   // Content builders for nice cards
   Widget _buildHeaderCardContent() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Kuala Lumpur',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Kuala Lumpur',
+              '${_currentData.temperature.toStringAsFixed(0)}°',
               style: const TextStyle(
-            color: Colors.white,
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 48,
+                fontWeight: FontWeight.w300,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '${_currentData.temperature.toStringAsFixed(0)}°',
-                  style: const TextStyle(
-                color: Colors.white,
-                    fontSize: 48,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                Text(
-                  ' | Mostly Sunny',
+            Text(
+              ' | Mostly Sunny',
               style: const TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ],
             ),
           ],
+        ),
+      ],
     );
   }
 
   Widget _buildCurrentConditionsContent() {
     return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Current Conditions',
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(color: Colors.black87),
+        ),
+        const SizedBox(height: 16),
+        Row(
           children: [
-            Text(
-              'Current Conditions',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-          ),
+            Expanded(
+              child: _buildConditionItem(
+                'Temperature',
+                '${_currentData.temperature}°C',
+                Icons.thermostat,
+                Colors.orange,
+              ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-            Expanded(child: _buildConditionItem('Temperature', '${_currentData.temperature}°C', Icons.thermostat, Colors.orange)),
-            Expanded(child: _buildConditionItem('Humidity', '${_currentData.humidity}%', Icons.water_drop, Colors.blue)),
-            Expanded(child: _buildConditionItem('Rainfall', '${_currentData.rainfall}mm', Icons.umbrella, Colors.indigo)),
-              ],
+            Expanded(
+              child: _buildConditionItem(
+                'Humidity',
+                '${_currentData.humidity}%',
+                Icons.water_drop,
+                Colors.blue,
+              ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-            Expanded(child: _buildConditionItem('Wind Speed', '${_currentData.windSpeed}km/h', Icons.air, Colors.teal)),
-            Expanded(child: _buildConditionItem('Soil Moisture', '${_currentData.soilMoisture}%', Icons.grass, Colors.green)),
-            Expanded(child: _buildConditionItem('Water Table', '${_currentData.waterTableLevel}m', Icons.waves, Colors.cyan)),
-              ],
+            Expanded(
+              child: _buildConditionItem(
+                'Rainfall',
+                '${_currentData.rainfall}mm',
+                Icons.umbrella,
+                Colors.indigo,
+              ),
             ),
           ],
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              child: _buildConditionItem(
+                'Wind Speed',
+                '${_currentData.windSpeed}km/h',
+                Icons.air,
+                Colors.teal,
+              ),
+            ),
+            Expanded(
+              child: _buildConditionItem(
+                'Soil Moisture',
+                '${_currentData.soilMoisture}%',
+                Icons.grass,
+                Colors.green,
+              ),
+            ),
+            Expanded(
+              child: _buildConditionItem(
+                'Water Table',
+                '${_currentData.waterTableLevel}m',
+                Icons.waves,
+                Colors.cyan,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
-  Widget _buildConditionItem(String label, String value, IconData icon, Color color) {
+  Widget _buildConditionItem(
+    String label,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Column(
       children: [
         Icon(icon, color: color, size: 32),
         const SizedBox(height: 8),
         Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+            color: Colors.black87,
           ),
         ),
         Text(
           label,
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey[600],
-            fontSize: 12,
-          ),
+          style: TextStyle(color: Colors.grey[600], fontSize: 12),
           textAlign: TextAlign.center,
         ),
       ],
@@ -953,9 +1183,11 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
   }
 
   Widget _buildRiskAssessmentContent() {
-    final floodScore = (_currentData.rainfall * 2 + _currentData.soilMoisture) ~/ 3;
-    final droughtScore = (100 - _currentData.rainfall + (100 - _currentData.soilMoisture)) ~/ 2;
-    
+    final floodScore =
+        (_currentData.rainfall * 2 + _currentData.soilMoisture) ~/ 3;
+    final droughtScore =
+        (100 - _currentData.rainfall + (100 - _currentData.soilMoisture)) ~/ 2;
+
     String floodLevel, droughtLevel;
     Color floodColor, droughtColor;
     String floodRecommendation, droughtRecommendation;
@@ -967,11 +1199,13 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     } else if (floodScore < 60) {
       floodLevel = 'Moderate';
       floodColor = Colors.orange;
-      floodRecommendation = 'Monitor local weather updates. Prepare for possible heavy rain.';
+      floodRecommendation =
+          'Monitor local weather updates. Prepare for possible heavy rain.';
     } else {
       floodLevel = 'High';
       floodColor = Colors.red;
-      floodRecommendation = 'High flood risk! Prepare to move to higher ground and follow local alerts.';
+      floodRecommendation =
+          'High flood risk! Prepare to move to higher ground and follow local alerts.';
     }
 
     if (droughtScore < 30) {
@@ -985,27 +1219,51 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     } else {
       droughtLevel = 'High';
       droughtColor = Colors.red;
-      droughtRecommendation = 'Severe drought risk! Limit water use and follow local advisories.';
+      droughtRecommendation =
+          'Severe drought risk! Limit water use and follow local advisories.';
     }
 
     return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Risk Assessment',
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Risk Assessment',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black87,
           ),
         ),
         const SizedBox(height: 16),
-        _buildScoreRiskIndicator('Flood Risk', floodScore, floodLevel, floodColor, Icons.warning, floodRecommendation),
-            const SizedBox(height: 12),
-        _buildScoreRiskIndicator('Drought Risk', droughtScore, droughtLevel, droughtColor, Icons.water_drop, droughtRecommendation),
+        _buildScoreRiskIndicator(
+          'Flood Risk',
+          floodScore,
+          floodLevel,
+          floodColor,
+          Icons.warning,
+          floodRecommendation,
+        ),
+        const SizedBox(height: 12),
+        _buildScoreRiskIndicator(
+          'Drought Risk',
+          droughtScore,
+          droughtLevel,
+          droughtColor,
+          Icons.water_drop,
+          droughtRecommendation,
+        ),
       ],
     );
   }
 
-  Widget _buildScoreRiskIndicator(String title, int score, String level, Color color, IconData icon, String recommendation) {
+  Widget _buildScoreRiskIndicator(
+    String title,
+    int score,
+    String level,
+    Color color,
+    IconData icon,
+    String recommendation,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1026,9 +1284,9 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+                      color: Colors.black87,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -1045,10 +1303,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
               const SizedBox(height: 4),
               Text(
                 recommendation,
-                style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey[700],
-                  fontSize: 13,
-                ),
+                style: TextStyle(color: Colors.grey[700], fontSize: 13),
               ),
             ],
           ),
@@ -1063,61 +1318,61 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
     }
 
     return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Active Alerts',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-              ),
-                ),
-                TextButton(
-                  onPressed: () {
-                _tabController.animateTo(3);
-                  },
-                  child: const Text('View All'),
-                ),
-              ],
+            Text(
+              'Active Alerts',
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(color: Colors.black87),
             ),
-            const SizedBox(height: 8),
-            ..._currentData.activeAlerts.map(
-              (alert) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  children: [
-                    const Icon(Icons.warning, color: Colors.orange),
-                    const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    alert,
-                    style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-                ),
-              ),
+            TextButton(
+              onPressed: () {
+                _tabController.animateTo(3);
+              },
+              child: const Text('View All'),
             ),
           ],
         ),
-      ),
+        const SizedBox(height: 8),
+        ..._currentData.activeAlerts.map(
+          (alert) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              children: [
+                const Icon(Icons.warning, color: Colors.orange),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    alert,
+                    style: const TextStyle(color: Colors.black87),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
   }
 
   Widget _buildRiskTrendChart(String title, List<double> scores, Color color) {
-    return _darkCard(context, Padding(
+    return _darkCard(
+      context,
+      Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+            Text(
+              title,
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(color: Colors.black87),
             ),
-          ),
             const SizedBox(height: 24),
             SizedBox(
               height: 200,
@@ -1132,8 +1387,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         getTitlesWidget: (value, meta) {
                           return Text(
                             value.toInt().toString(),
-                          style: TextStyle(
-                            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white70
+                                  : Colors.grey,
                               fontSize: 12,
                             ),
                           );
@@ -1152,8 +1411,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                               padding: const EdgeInsets.only(top: 8),
                               child: Text(
                                 '${date.day}/${date.month}',
-                              style: TextStyle(
-                                color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white70
+                                      : Colors.grey,
                                   fontSize: 12,
                                 ),
                               ),
@@ -1163,8 +1426,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         },
                       ),
                     ),
-                  rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
                   ),
                   borderData: FlBorderData(
                     show: true,
@@ -1195,20 +1462,25 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
             ),
           ],
         ),
-    ));
+      ),
+    );
   }
 
   Widget _buildTemperatureTrend() {
-    return _darkCard(context, Padding(
+    return _darkCard(
+      context,
+      Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Temperature Trend',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-            ),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black87,
+              ),
             ),
             const SizedBox(height: 24),
             SizedBox(
@@ -1224,8 +1496,8 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         getTitlesWidget: (value, meta) {
                           return Text(
                             '${value.toInt()}°C',
-                          style: TextStyle(
-                            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                            style: const TextStyle(
+                              color: Colors.grey,
                               fontSize: 12,
                             ),
                           );
@@ -1239,13 +1511,19 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         getTitlesWidget: (value, meta) {
                           final index = value.toInt();
                           if (index % 5 == 0) {
-                          final date = DateTime.now().subtract(Duration(days: 29 - index));
+                            final date = DateTime.now().subtract(
+                              Duration(days: 29 - index),
+                            );
                             return Padding(
                               padding: const EdgeInsets.only(top: 8),
                               child: Text(
                                 '${date.day}/${date.month}',
-                              style: TextStyle(
-                                color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white70
+                                      : Colors.grey,
                                   fontSize: 12,
                                 ),
                               ),
@@ -1255,8 +1533,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         },
                       ),
                     ),
-                  rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
                   ),
                   borderData: FlBorderData(
                     show: true,
@@ -1270,7 +1552,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                       spots: _historicalData
                           .asMap()
                           .entries
-                        .map((entry) => FlSpot(entry.key.toDouble(), entry.value.temperature))
+                          .map(
+                            (entry) => FlSpot(
+                              entry.key.toDouble(),
+                              entry.value.temperature,
+                            ),
+                          )
                           .toList(),
                       isCurved: true,
                       color: Colors.orange,
@@ -1288,20 +1575,25 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
             ),
           ],
         ),
-    ));
+      ),
+    );
   }
 
   Widget _buildRainfallTrend() {
-    return _darkCard(context, Padding(
+    return _darkCard(
+      context,
+      Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Rainfall Distribution',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-            ),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black87,
+              ),
             ),
             const SizedBox(height: 24),
             SizedBox(
@@ -1317,8 +1609,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         getTitlesWidget: (value, meta) {
                           return Text(
                             '${value.toInt()}mm',
-                          style: TextStyle(
-                            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white70
+                                  : Colors.grey,
                               fontSize: 12,
                             ),
                           );
@@ -1332,13 +1628,19 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         getTitlesWidget: (value, meta) {
                           final index = value.toInt();
                           if (index % 5 == 0) {
-                          final date = DateTime.now().subtract(Duration(days: 29 - index));
+                            final date = DateTime.now().subtract(
+                              Duration(days: 29 - index),
+                            );
                             return Padding(
                               padding: const EdgeInsets.only(top: 8),
                               child: Text(
                                 '${date.day}/${date.month}',
-                              style: TextStyle(
-                                color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white70
+                                      : Colors.grey,
                                   fontSize: 12,
                                 ),
                               ),
@@ -1348,8 +1650,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         },
                       ),
                     ),
-                  rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
                   ),
                   borderData: FlBorderData(
                     show: true,
@@ -1361,37 +1667,46 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                   barGroups: _historicalData
                       .asMap()
                       .entries
-                    .map((entry) => BarChartGroupData(
+                      .map(
+                        (entry) => BarChartGroupData(
                           x: entry.key,
                           barRods: [
                             BarChartRodData(
                               toY: entry.value.rainfall,
                               color: Colors.blue,
                               width: 8,
-                              borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(4),
+                              ),
                             ),
                           ],
-                        ))
+                        ),
+                      )
                       .toList(),
                 ),
               ),
             ),
           ],
         ),
-    ));
+      ),
+    );
   }
 
   Widget _buildWaterTableTrend() {
-    return _darkCard(context, Padding(
+    return _darkCard(
+      context,
+      Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Water Table Level',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-            ),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black87,
+              ),
             ),
             const SizedBox(height: 24),
             SizedBox(
@@ -1407,8 +1722,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         getTitlesWidget: (value, meta) {
                           return Text(
                             '${value.toStringAsFixed(1)}m',
-                          style: TextStyle(
-                            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white70
+                                  : Colors.grey,
                               fontSize: 12,
                             ),
                           );
@@ -1422,13 +1741,19 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         getTitlesWidget: (value, meta) {
                           final index = value.toInt();
                           if (index % 5 == 0) {
-                          final date = DateTime.now().subtract(Duration(days: 29 - index));
+                            final date = DateTime.now().subtract(
+                              Duration(days: 29 - index),
+                            );
                             return Padding(
                               padding: const EdgeInsets.only(top: 8),
                               child: Text(
                                 '${date.day}/${date.month}',
-                              style: TextStyle(
-                                color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey,
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white70
+                                      : Colors.grey,
                                   fontSize: 12,
                                 ),
                               ),
@@ -1438,8 +1763,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                         },
                       ),
                     ),
-                  rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
                   ),
                   borderData: FlBorderData(
                     show: true,
@@ -1453,7 +1782,12 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                       spots: _historicalData
                           .asMap()
                           .entries
-                        .map((entry) => FlSpot(entry.key.toDouble(), entry.value.waterTableLevel))
+                          .map(
+                            (entry) => FlSpot(
+                              entry.key.toDouble(),
+                              entry.value.waterTableLevel,
+                            ),
+                          )
                           .toList(),
                       isCurved: true,
                       color: Colors.cyan,
@@ -1471,7 +1805,8 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
             ),
           ],
         ),
-    ));
+      ),
+    );
   }
 
   Widget _buildCommunityTrendsChart() {
@@ -1484,67 +1819,83 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
           .where((r) => DateTime.parse(r['timestamp'] ?? '') == date)
           .length;
     }
-    return _darkCard(context, Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Community Reports Trend',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+    return _darkCard(
+      context,
+      Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Community Reports Trend',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black87,
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 120,
-            child: BarChart(
-              BarChartData(
-                gridData: FlGridData(show: false),
-                titlesData: FlTitlesData(
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(showTitles: true, reservedSize: 40),
-                  ),
-                  bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                ),
-                borderData: FlBorderData(
-                  show: true,
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey.shade300),
-                    left: BorderSide(color: Colors.grey.shade300),
-                  ),
-                ),
-                barGroups: List.generate(
-                  reportCounts.length,
-                  (i) => BarChartGroupData(
-                    x: i,
-                    barRods: [
-                      BarChartRodData(
-                        toY: reportCounts[i].toDouble(),
-                        color: Colors.purple,
-                        width: 8,
+            const SizedBox(height: 8),
+            SizedBox(
+              height: 120,
+              child: BarChart(
+                BarChartData(
+                  gridData: FlGridData(show: false),
+                  titlesData: FlTitlesData(
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
                       ),
-                    ],
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                  ),
+                  borderData: FlBorderData(
+                    show: true,
+                    border: Border(
+                      bottom: BorderSide(color: Colors.grey.shade300),
+                      left: BorderSide(color: Colors.grey.shade300),
+                    ),
+                  ),
+                  barGroups: List.generate(
+                    reportCounts.length,
+                    (i) => BarChartGroupData(
+                      x: i,
+                      barRods: [
+                        BarChartRodData(
+                          toY: reportCounts[i].toDouble(),
+                          color: Colors.purple,
+                          width: 8,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Number of community hazard reports per day',
-            style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey[600],
+            const SizedBox(height: 8),
+            Text(
+              'Number of community hazard reports per day',
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white70
+                    : Colors.grey[600],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
-    Widget _buildRiskMapTab() {
+  Widget _buildRiskMapTab() {
     final floodZone = [
       [1.300, 103.800],
       [1.301, 103.802],
@@ -1557,25 +1908,83 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
       [1.300, 103.805],
       [1.299, 103.803],
     ];
-    
+
     // More risk points
     final riskPoints = [
-      {'lat': 1.301, 'lng': 103.800, 'type': 'Flood', 'severity': 'High', 'icon': Icons.warning, 'color': Colors.red},
-      {'lat': 1.299, 'lng': 103.805, 'type': 'Drought', 'severity': 'Medium', 'icon': Icons.water_drop, 'color': Colors.orange},
-      {'lat': 1.302, 'lng': 103.798, 'type': 'Flood', 'severity': 'Medium', 'icon': Icons.warning, 'color': Colors.red},
-      {'lat': 1.298, 'lng': 103.802, 'type': 'Drought', 'severity': 'High', 'icon': Icons.water_drop, 'color': Colors.orange},
-      {'lat': 1.303, 'lng': 103.801, 'type': 'Flood', 'severity': 'Low', 'icon': Icons.warning, 'color': Colors.red},
-      {'lat': 1.297, 'lng': 103.807, 'type': 'Drought', 'severity': 'Medium', 'icon': Icons.water_drop, 'color': Colors.orange},
-      {'lat': 1.300, 'lng': 103.797, 'type': 'Flood', 'severity': 'High', 'icon': Icons.warning, 'color': Colors.red},
-      {'lat': 1.301, 'lng': 103.806, 'type': 'Drought', 'severity': 'Low', 'icon': Icons.water_drop, 'color': Colors.orange},
+      {
+        'lat': 1.301,
+        'lng': 103.800,
+        'type': 'Flood',
+        'severity': 'High',
+        'icon': Icons.warning,
+        'color': Colors.red,
+      },
+      {
+        'lat': 1.299,
+        'lng': 103.805,
+        'type': 'Drought',
+        'severity': 'Medium',
+        'icon': Icons.water_drop,
+        'color': Colors.orange,
+      },
+      {
+        'lat': 1.302,
+        'lng': 103.798,
+        'type': 'Flood',
+        'severity': 'Medium',
+        'icon': Icons.warning,
+        'color': Colors.red,
+      },
+      {
+        'lat': 1.298,
+        'lng': 103.802,
+        'type': 'Drought',
+        'severity': 'High',
+        'icon': Icons.water_drop,
+        'color': Colors.orange,
+      },
+      {
+        'lat': 1.303,
+        'lng': 103.801,
+        'type': 'Flood',
+        'severity': 'Low',
+        'icon': Icons.warning,
+        'color': Colors.red,
+      },
+      {
+        'lat': 1.297,
+        'lng': 103.807,
+        'type': 'Drought',
+        'severity': 'Medium',
+        'icon': Icons.water_drop,
+        'color': Colors.orange,
+      },
+      {
+        'lat': 1.300,
+        'lng': 103.797,
+        'type': 'Flood',
+        'severity': 'High',
+        'icon': Icons.warning,
+        'color': Colors.red,
+      },
+      {
+        'lat': 1.301,
+        'lng': 103.806,
+        'type': 'Drought',
+        'severity': 'Low',
+        'icon': Icons.water_drop,
+        'color': Colors.orange,
+      },
     ];
-    
+
     // Helper function to safely get values from risk points
-    double getLat(Map<String, dynamic> point) => (point['lat'] as num).toDouble();
-    double getLng(Map<String, dynamic> point) => (point['lng'] as num).toDouble();
+    double getLat(Map<String, dynamic> point) =>
+        (point['lat'] as num).toDouble();
+    double getLng(Map<String, dynamic> point) =>
+        (point['lng'] as num).toDouble();
     IconData getIcon(Map<String, dynamic> point) => point['icon'] as IconData;
     Color getColor(Map<String, dynamic> point) => point['color'] as Color;
-    
+
     return Column(
       children: [
         // Map section with reduced height
@@ -1596,19 +2005,24 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                       ),
                       children: [
                         fmap.TileLayer(
-                          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          urlTemplate:
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                           tileProvider: CancellableNetworkTileProvider(),
                         ),
                         fmap.PolygonLayer(
                           polygons: [
                             fmap.Polygon(
-                              points: floodZone.map((c) => latlong.LatLng(c[0], c[1])).toList(),
+                              points: floodZone
+                                  .map((c) => latlong.LatLng(c[0], c[1]))
+                                  .toList(),
                               color: Colors.red.withOpacity(0.3),
                               borderStrokeWidth: 2,
                               borderColor: Colors.red,
                             ),
                             fmap.Polygon(
-                              points: droughtZone.map((c) => latlong.LatLng(c[0], c[1])).toList(),
+                              points: droughtZone
+                                  .map((c) => latlong.LatLng(c[0], c[1]))
+                                  .toList(),
                               color: Colors.orange.withOpacity(0.3),
                               borderStrokeWidth: 2,
                               borderColor: Colors.orange,
@@ -1616,15 +2030,27 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                           ],
                         ),
                         fmap.MarkerLayer(
-                          markers: riskPoints.map((point) => fmap.Marker(
-                            width: 40,
-                            height: 40,
-                            point: latlong.LatLng(getLat(point), getLng(point)),
-                            child: Tooltip(
-                              message: '${point['type']} Risk - ${point['severity']}',
-                              child: Icon(getIcon(point), color: getColor(point), size: 36),
-                            ),
-                          )).toList(),
+                          markers: riskPoints
+                              .map(
+                                (point) => fmap.Marker(
+                                  width: 40,
+                                  height: 40,
+                                  point: latlong.LatLng(
+                                    getLat(point),
+                                    getLng(point),
+                                  ),
+                                  child: Tooltip(
+                                    message:
+                                        '${point['type']} Risk - ${point['severity']}',
+                                    child: Icon(
+                                      getIcon(point),
+                                      color: getColor(point),
+                                      size: 36,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
                         ),
                       ],
                     );
@@ -1637,35 +2063,42 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                       polygons: {
                         gmaps.Polygon(
                           polygonId: const gmaps.PolygonId('flood'),
-                          points: floodZone.map((c) => gmaps.LatLng(c[0], c[1])).toList(),
+                          points: floodZone
+                              .map((c) => gmaps.LatLng(c[0], c[1]))
+                              .toList(),
                           fillColor: Colors.red.withOpacity(0.3),
                           strokeColor: Colors.red,
                           strokeWidth: 2,
                         ),
                         gmaps.Polygon(
                           polygonId: const gmaps.PolygonId('drought'),
-                          points: droughtZone.map((c) => gmaps.LatLng(c[0], c[1])).toList(),
+                          points: droughtZone
+                              .map((c) => gmaps.LatLng(c[0], c[1]))
+                              .toList(),
                           fillColor: Colors.orange.withOpacity(0.3),
                           strokeColor: Colors.orange,
                           strokeWidth: 2,
                         ),
                       },
-                                              markers: {
-                          for (int i = 0; i < riskPoints.length; i++)
-                            gmaps.Marker(
-                              markerId: gmaps.MarkerId('risk_$i'),
-                              position: gmaps.LatLng(getLat(riskPoints[i]), getLng(riskPoints[i])),
-                              infoWindow: gmaps.InfoWindow(
-                                title: '${riskPoints[i]['type']} Risk',
-                                snippet: 'Severity: ${riskPoints[i]['severity']}',
-                              ),
-                              icon: gmaps.BitmapDescriptor.defaultMarkerWithHue(
-                                getColor(riskPoints[i]) == Colors.red 
-                                  ? gmaps.BitmapDescriptor.hueRed 
-                                  : gmaps.BitmapDescriptor.hueOrange
-                              ),
+                      markers: {
+                        for (int i = 0; i < riskPoints.length; i++)
+                          gmaps.Marker(
+                            markerId: gmaps.MarkerId('risk_$i'),
+                            position: gmaps.LatLng(
+                              getLat(riskPoints[i]),
+                              getLng(riskPoints[i]),
                             ),
-                        },
+                            infoWindow: gmaps.InfoWindow(
+                              title: '${riskPoints[i]['type']} Risk',
+                              snippet: 'Severity: ${riskPoints[i]['severity']}',
+                            ),
+                            icon: gmaps.BitmapDescriptor.defaultMarkerWithHue(
+                              getColor(riskPoints[i]) == Colors.red
+                                  ? gmaps.BitmapDescriptor.hueRed
+                                  : gmaps.BitmapDescriptor.hueOrange,
+                            ),
+                          ),
+                      },
                       myLocationButtonEnabled: false,
                       zoomControlsEnabled: true,
                     );
@@ -1675,151 +2108,195 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
             ),
           ),
         ),
-        
+
         // Cards below the map
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             children: [
               // Risk Summary Card
-              _darkCard(context, Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Risk Summary',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+              _darkCard(
+                context,
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Risk Summary',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black87,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildRiskSummaryItem('Flood', 4, Colors.red),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildRiskSummaryItem('Drought', 4, Colors.orange),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )),
-              
-              const SizedBox(height: 12),
-              
-              // Recent Reports Card
-              _darkCard(context, Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Recent Reports',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: _showReportHazardDialog,
-                          child: const Text('Report'),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    if (_communityHazardReports.isEmpty)
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Text(
-                          'No recent hazard reports',
-                          style: TextStyle(
-                            color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey[600],
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      )
-                    else
-                      ..._communityHazardReports.take(3).map((report) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Row(
-                          children: [
-                            Icon(
-                              report['type'] == 'Flood' ? Icons.warning : Icons.water_drop,
-                              color: report['type'] == 'Flood' ? Colors.red : Colors.orange,
-                              size: 20,
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildRiskSummaryItem(
+                              'Flood',
+                              4,
+                              Colors.red,
                             ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                '${report['type']} - ${report['description'].isNotEmpty ? report['description'] : 'No description'}',
-                                style: TextStyle(
-                                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: _buildRiskSummaryItem(
+                              'Drought',
+                              4,
+                              Colors.orange,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              // Recent Reports Card
+              _darkCard(
+                context,
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Recent Reports',
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black87,
+                                ),
+                          ),
+                          TextButton(
+                            onPressed: _showReportHazardDialog,
+                            child: const Text('Report'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      if (_communityHazardReports.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Text(
+                            'No recent hazard reports',
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white70
+                                  : Colors.grey[600],
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        )
+                      else
+                        ..._communityHazardReports
+                            .take(3)
+                            .map(
+                              (report) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      report['type'] == 'Flood'
+                                          ? Icons.warning
+                                          : Icons.water_drop,
+                                      color: report['type'] == 'Flood'
+                                          ? Colors.red
+                                          : Colors.orange,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        '${report['type']} - ${report['description'].isNotEmpty ? report['description'] : 'No description'}',
+                                        style: TextStyle(
+                                          color:
+                                              Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black87,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      )),
-                  ],
+                    ],
+                  ),
                 ),
-              )),
-              
+              ),
+
               const SizedBox(height: 12),
-              
+
               // Action Card
-              _darkCard(context, Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Quick Actions',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+              _darkCard(
+                context,
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Quick Actions',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black87,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton.icon(
-                            onPressed: _showReportHazardDialog,
-                            icon: const Icon(Icons.add_alert),
-                            label: const Text('Report Hazard'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                              foregroundColor: Colors.white,
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: _showReportHazardDialog,
+                              icon: const Icon(Icons.add_alert),
+                              label: const Text('Report Hazard'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                foregroundColor: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () {
-                              // View all reports action
-                            },
-                            icon: const Icon(Icons.list),
-                            label: const Text('View All'),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: OutlinedButton.icon(
+                              onPressed: () {
+                                // View all reports action
+                              },
+                              icon: const Icon(Icons.list),
+                              label: const Text('View All'),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              )),
+              ),
             ],
           ),
         ),
       ],
     );
   }
-  
+
   Widget _buildRiskSummaryItem(String type, int count, Color color) {
     return Container(
       padding: const EdgeInsets.all(12),
@@ -1830,22 +2307,22 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
       ),
       child: Column(
         children: [
-          Icon(color == Colors.red ? Icons.warning : Icons.water_drop, color: color, size: 24),
+          Icon(
+            color == Colors.red ? Icons.warning : Icons.water_drop,
+            color: color,
+            size: 24,
+          ),
           const SizedBox(height: 4),
           Text(
             type,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black87,
             ),
           ),
-          Text(
-            '$count points',
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-            ),
-          ),
+          Text('$count points', style: TextStyle(color: color, fontSize: 12)),
         ],
       ),
     );
@@ -1877,7 +2354,9 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
               const SizedBox(height: 12),
               TextField(
                 controller: descController,
-                decoration: const InputDecoration(labelText: 'Description (optional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Description (optional)',
+                ),
               ),
               const SizedBox(height: 12),
               TextField(
@@ -1921,33 +2400,52 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
   Widget _buildPredictionContent() {
     return Column(
       children: [
-        _darkCard(context, Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-              Text(
-                'Climate Prediction',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+        _darkCard(
+          context,
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Climate Prediction',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black87,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Advanced prediction models and scenario analysis for climate risk assessment.',
-                style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey[600],
+                const SizedBox(height: 16),
+                Text(
+                  'Advanced prediction models and scenario analysis for climate risk assessment.',
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white70
+                        : Colors.grey[600],
+                  ),
                 ),
-                    ),
-                  ],
-                ),
-        )),
+              ],
+            ),
+          ),
+        ),
         const SizedBox(height: 12),
-        _buildPredictionCard('Rule-based Prediction', Icons.rule, 'Based on current conditions and historical patterns'),
-            const SizedBox(height: 8),
-        _buildPredictionCard('ML Model Prediction', Icons.psychology, 'Machine learning model trained on historical data'),
-            const SizedBox(height: 8),
-        _buildPredictionCard('Scenario Analysis', Icons.analytics, 'What-if scenarios for different climate conditions'),
+        _buildPredictionCard(
+          'Rule-based Prediction',
+          Icons.rule,
+          'Based on current conditions and historical patterns',
+        ),
+        const SizedBox(height: 8),
+        _buildPredictionCard(
+          'ML Model Prediction',
+          Icons.psychology,
+          'Machine learning model trained on historical data',
+        ),
+        const SizedBox(height: 8),
+        _buildPredictionCard(
+          'Scenario Analysis',
+          Icons.analytics,
+          'What-if scenarios for different climate conditions',
+        ),
       ],
     );
   }
@@ -1955,74 +2453,112 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
   Widget _buildPredictionCard(String title, IconData icon, String description) {
     void _onTap() {
       if (title == 'Rule-based Prediction') {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => const RuleBasedPredictionScreen()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const RuleBasedPredictionScreen()),
+        );
       } else if (title == 'ML Model Prediction') {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => const MLModelPredictionScreen()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const MLModelPredictionScreen()),
+        );
       } else if (title == 'Scenario Analysis') {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => const ScenarioAnalysisScreen()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const ScenarioAnalysisScreen()),
+        );
       }
     }
+
     return GestureDetector(
       onTap: _onTap,
-      child: _darkCard(context, Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Icon(icon, color: Colors.blue, size: 32),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
+      child: _darkCard(
+        context,
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(icon, color: Colors.blue, size: 32),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black87,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.grey[600],
-                      fontSize: 14,
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white70
+                            : Colors.grey[600],
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Icon(Icons.arrow_forward_ios, color: Colors.grey),
-          ],
+              Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 
   // Helper methods
   List<double> _getTrendData(String type) {
-    int len = _trendRange == '7d' ? 7 : _trendRange == '1y' ? 365 : 30;
+    int len = _trendRange == '7d'
+        ? 7
+        : _trendRange == '1y'
+        ? 365
+        : 30;
     final data = _historicalData.take(len).toList();
     if (type == 'flood') {
-      return data.map((d) => ((d.rainfall * 2 + d.soilMoisture) ~/ 3).toDouble()).toList();
+      return data
+          .map((d) => ((d.rainfall * 2 + d.soilMoisture) ~/ 3).toDouble())
+          .toList();
     } else if (type == 'drought') {
-      return data.map((d) => ((100 - d.rainfall + (100 - d.soilMoisture)) ~/ 2).toDouble()).toList();
+      return data
+          .map(
+            (d) =>
+                ((100 - d.rainfall + (100 - d.soilMoisture)) ~/ 2).toDouble(),
+          )
+          .toList();
     }
     return [];
   }
 
   String _trendInsight() {
-    int len = _trendRange == '7d' ? 7 : _trendRange == '1y' ? 365 : 30;
+    int len = _trendRange == '7d'
+        ? 7
+        : _trendRange == '1y'
+        ? 365
+        : 30;
     final data = _historicalData.take(len).toList();
     if (data.length < 2) return 'Not enough data for insight.';
-    double avgRain = data.map((d) => d.rainfall).reduce((a, b) => a + b) / data.length;
-    double avgTemp = data.map((d) => d.temperature).reduce((a, b) => a + b) / data.length;
+    double avgRain =
+        data.map((d) => d.rainfall).reduce((a, b) => a + b) / data.length;
+    double avgTemp =
+        data.map((d) => d.temperature).reduce((a, b) => a + b) / data.length;
     return 'In the last $len days, average rainfall was ${avgRain.toStringAsFixed(1)} mm and average temperature was ${avgTemp.toStringAsFixed(1)}°C.';
   }
 
   int _getTrendLen() {
-    return _trendRange == '7d' ? 7 : _trendRange == '1y' ? 365 : 30;
+    return _trendRange == '7d'
+        ? 7
+        : _trendRange == '1y'
+        ? 365
+        : 30;
   }
 }
 
@@ -2034,14 +2570,18 @@ class _DashedLinePainter extends CustomPainter {
       ..color = Colors.grey
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
-    
+
     const dashWidth = 4;
     const dashSpace = 4;
     double startX = 0;
     final double endX = size.width;
-    
+
     while (startX < endX) {
-      canvas.drawLine(Offset(startX, size.height / 2), Offset(startX + dashWidth, size.height / 2), paint);
+      canvas.drawLine(
+        Offset(startX, size.height / 2),
+        Offset(startX + dashWidth, size.height / 2),
+        paint,
+      );
       startX += dashWidth + dashSpace;
     }
   }

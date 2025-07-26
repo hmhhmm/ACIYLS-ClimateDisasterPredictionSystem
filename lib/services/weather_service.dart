@@ -7,7 +7,9 @@ class WeatherService {
   static const String _baseUrl = 'https://api.openweathermap.org/data/2.5';
 
   Future<Weather?> getCurrentWeather(double lat, double lon) async {
-    final url = Uri.parse('$_baseUrl/weather?lat=$lat&lon=$lon&units=metric&appid=$_apiKey');
+    final url = Uri.parse(
+      '$_baseUrl/weather?lat=$lat&lon=$lon&units=metric&appid=$_apiKey',
+    );
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -17,7 +19,9 @@ class WeatherService {
   }
 
   Future<List<Weather>> get7DayForecast(double lat, double lon) async {
-    final url = Uri.parse('$_baseUrl/onecall?lat=$lat&lon=$lon&exclude=minutely,hourly,alerts,current&units=metric&appid=$_apiKey');
+    final url = Uri.parse(
+      '$_baseUrl/onecall?lat=$lat&lon=$lon&exclude=minutely,hourly,alerts,current&units=metric&appid=$_apiKey',
+    );
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -26,4 +30,4 @@ class WeatherService {
     }
     return [];
   }
-} 
+}
