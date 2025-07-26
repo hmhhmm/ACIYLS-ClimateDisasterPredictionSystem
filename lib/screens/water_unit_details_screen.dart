@@ -41,7 +41,7 @@ class _WaterUnitDetailsScreenState extends State<WaterUnitDetailsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.unit['name']),
+        title: Text(widget.unit['name'] ?? 'Unknown Unit'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
@@ -129,14 +129,14 @@ class _WaterUnitDetailsScreenState extends State<WaterUnitDetailsScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.unit['type'],
+                        widget.unit['type'] ?? '-',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        widget.unit['location'],
+                        widget.unit['location'] ?? '-',
                         style: const TextStyle(color: Colors.grey),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -155,17 +155,23 @@ class _WaterUnitDetailsScreenState extends State<WaterUnitDetailsScreen>
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    widget.unit['status'],
+                    widget.unit['status'] ?? '-',
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ],
             ),
             const Divider(height: 32),
-            _buildInfoRow('Capacity', widget.unit['capacity']),
-            _buildInfoRow('Current Level', widget.unit['currentLevel']),
-            _buildInfoRow('Last Maintenance', widget.unit['lastMaintenance']),
-            _buildInfoRow('Next Maintenance', widget.unit['nextMaintenance']),
+            _buildInfoRow('Capacity', widget.unit['capacity'] ?? '-'),
+            _buildInfoRow('Current Level', widget.unit['currentLevel'] ?? '-'),
+            _buildInfoRow(
+              'Last Maintenance',
+              widget.unit['lastMaintenance'] ?? '-',
+            ),
+            _buildInfoRow(
+              'Next Maintenance',
+              widget.unit['nextMaintenance'] ?? '-',
+            ),
           ],
         ),
       ),
@@ -359,7 +365,7 @@ class _WaterUnitDetailsScreenState extends State<WaterUnitDetailsScreen>
               dotData: FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 0.1),
               ),
             ),
           ],
@@ -512,7 +518,7 @@ class _WaterUnitDetailsScreenState extends State<WaterUnitDetailsScreen>
             trailing: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: issue.status.color.withOpacity(0.2),
+                color: issue.status.color.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
@@ -653,7 +659,7 @@ class _WaterUnitDetailsScreenState extends State<WaterUnitDetailsScreen>
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'This usage will be recorded for ${widget.unit['name']}',
+                      'This usage will be recorded for ${widget.unit['name'] ?? 'Unknown Unit'}',
                       style: const TextStyle(fontSize: 12, color: Colors.blue),
                     ),
                   ),

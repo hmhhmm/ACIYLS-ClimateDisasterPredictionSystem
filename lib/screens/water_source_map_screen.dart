@@ -38,8 +38,8 @@ class _WaterSourceMapScreenState extends State<WaterSourceMapScreen> {
       body: kIsWeb
           ? fmap.FlutterMap(
               options: fmap.MapOptions(
-                center: latlong.LatLng(1.300, 103.800),
-                zoom: 14,
+                initialCenter: latlong.LatLng(1.300, 103.800),
+                initialZoom: 14,
               ),
               children: [
                 fmap.TileLayer(

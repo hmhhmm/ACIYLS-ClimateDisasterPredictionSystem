@@ -3,12 +3,27 @@ import 'package:http/http.dart' as http;
 import '../models/weather.dart';
 
 class WeatherService {
-  static const String _apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
-  static const String _baseUrl = 'https://api.openweathermap.org/data/2.5';
+  final String apiKey;
+  final String baseUrl;
+
+  WeatherService({required this.apiKey})
+    : baseUrl = 'https://api.openweathermap.org/data/2.5';
+
+  Future<Map<String, dynamic>?> fetchCurrentWeather(String city) async {
+    final url = Uri.parse(
+      '$baseUrl/weather?q=$city&appid=$apiKey&units=metric',
+    );
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      return json.decode(response.body) as Map<String, dynamic>;
+    } else {
+      return null;
+    }
+  }
 
   Future<Weather?> getCurrentWeather(double lat, double lon) async {
     final url = Uri.parse(
-      '$_baseUrl/weather?lat=$lat&lon=$lon&units=metric&appid=$_apiKey',
+      '$baseUrl/weather?lat=$lat&lon=$lon&appid=$apiKey&units=metric',
     );
     final response = await http.get(url);
     if (response.statusCode == 200) {
@@ -20,14 +35,15 @@ class WeatherService {
 
   Future<List<Weather>> get7DayForecast(double lat, double lon) async {
     final url = Uri.parse(
-      '$_baseUrl/onecall?lat=$lat&lon=$lon&exclude=minutely,hourly,alerts,current&units=metric&appid=$_apiKey',
+      '$baseUrl/onecall?lat=$lat&lon=$lon&exclude=minutely,hourly,alerts,current&units=metric&appid=$apiKey',
     );
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      final List daily = data['daily'] ?? [];
-      return daily.map((e) => Weather.fromJson(e)).toList();
+      final daily = data['daily'] as List;
+      return daily.map((day) => Weather.fromJson(day)).toList();
+    } else {
+      return [];
     }
-    return [];
   }
 }

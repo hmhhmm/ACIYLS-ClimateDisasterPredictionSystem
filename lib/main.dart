@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:device_frame/device_frame.dart';
 import 'package:flutter/foundation.dart';
-import 'utils/responsive_utils.dart';
+
 import 'package:provider/provider.dart';
 import 'services/offline_queue_service.dart';
 import 'screens/main_navigation.dart';

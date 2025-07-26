@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as gmaps;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
 import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
+import '../services/weather_service.dart';
 
 class WeatherColors {
   static const Color primary = Color(0xFFF2F2F7);
@@ -78,9 +79,16 @@ class RuleBasedPredictionScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.blue.withOpacity(0.3)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +96,7 @@ class RuleBasedPredictionScreen extends StatelessWidget {
                 const Text(
                   'Rule Engine Status',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -204,7 +212,7 @@ class RuleBasedPredictionScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: Colors.white70)),
+          Text(label, style: const TextStyle(color: Colors.black87)),
           Text(
             value,
             style: TextStyle(color: color, fontWeight: FontWeight.bold),
@@ -224,10 +232,10 @@ class MLModelPredictionScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'ML Model Prediction',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.black,
-        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -235,9 +243,16 @@ class MLModelPredictionScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.purple.withOpacity(0.3)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,7 +260,7 @@ class MLModelPredictionScreen extends StatelessWidget {
                 const Text(
                   'Model Performance',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -263,9 +278,16 @@ class MLModelPredictionScreen extends StatelessWidget {
             height: 200,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.green.withOpacity(0.3)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +295,7 @@ class MLModelPredictionScreen extends StatelessWidget {
                 const Text(
                   'Prediction Confidence',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -292,7 +314,7 @@ class MLModelPredictionScreen extends StatelessWidget {
                               return Text(
                                 '${(value * 100).toInt()}%',
                                 style: const TextStyle(
-                                  color: Colors.white70,
+                                  color: Colors.black87,
                                   fontSize: 12,
                                 ),
                               );
@@ -366,9 +388,16 @@ class MLModelPredictionScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.orange.withOpacity(0.3)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -376,7 +405,7 @@ class MLModelPredictionScreen extends StatelessWidget {
                 const Text(
                   'Next 7 Days Predictions',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -417,11 +446,11 @@ class MLModelPredictionScreen extends StatelessWidget {
                     // Export predictions
                   },
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.white),
+                    side: const BorderSide(color: Colors.black),
                   ),
                   child: const Text(
                     'Export Data',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                   ),
                 ),
               ),
@@ -438,7 +467,7 @@ class MLModelPredictionScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: Colors.white70)),
+          Text(label, style: const TextStyle(color: Colors.black87)),
           Text(
             value,
             style: TextStyle(color: color, fontWeight: FontWeight.bold),
@@ -454,7 +483,7 @@ class MLModelPredictionScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: Colors.white)),
+          Text(label, style: const TextStyle(color: Colors.black)),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
@@ -543,9 +572,16 @@ class ScenarioAnalysisScreen extends StatelessWidget {
             height: 200,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.blue.withOpacity(0.3)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -553,7 +589,7 @@ class ScenarioAnalysisScreen extends StatelessWidget {
                 const Text(
                   'Impact Comparison',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -572,7 +608,7 @@ class ScenarioAnalysisScreen extends StatelessWidget {
                               return Text(
                                 '${value.toInt()}%',
                                 style: const TextStyle(
-                                  color: Colors.white70,
+                                  color: Colors.black87,
                                   fontSize: 12,
                                 ),
                               );
@@ -589,7 +625,7 @@ class ScenarioAnalysisScreen extends StatelessWidget {
                                 return Text(
                                   labels[value.toInt()],
                                   style: const TextStyle(
-                                    color: Colors.white70,
+                                    color: Colors.black87,
                                     fontSize: 12,
                                   ),
                                 );
@@ -648,9 +684,16 @@ class ScenarioAnalysisScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.yellow.withOpacity(0.3)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -658,7 +701,7 @@ class ScenarioAnalysisScreen extends StatelessWidget {
                 const Text(
                   'Recommended Actions',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -766,14 +809,14 @@ class ScenarioAnalysisScreen extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   description,
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                  style: const TextStyle(color: Colors.black87, fontSize: 12),
                 ),
               ],
             ),
@@ -804,11 +847,13 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
   final List<Map<String, dynamic>> _communityHazardReports = [];
   String? _selectedScenario = 'Normal';
   String _trendRange = '30d';
+  late WeatherService _weatherService;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
+    _weatherService = WeatherService(apiKey: 'YOUR_API_KEY_HERE');
   }
 
   @override
@@ -927,7 +972,7 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
               ),
               child: TabBar(
                 controller: _tabController,
-                isScrollable: false,
+                isScrollable: true,
                 labelColor: Color(0xFF007AFF),
                 unselectedLabelColor: Colors.black54,
                 indicator: UnderlineTabIndicator(
@@ -936,112 +981,130 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
                 ),
                 labelStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  letterSpacing: 0.5,
+                  fontSize: 15,
+                  letterSpacing: 0.3,
                 ),
                 tabs: const [
                   Tab(text: 'Overview'),
                   Tab(text: 'Trends'),
                   Tab(text: 'Risk Map'),
-                  Tab(text: 'Prediction'),
+                  Tab(text: 'Predict'),
+                  Tab(text: 'Sensors'),
                 ],
               ),
             ),
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
+        body: Column(
           children: [
-            // Overview Tab
-            ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                _niceCard(
-                  context,
-                  _buildHeaderCardContent(),
-                  accent: Colors.blue,
-                ),
-                const SizedBox(height: 12),
-                _niceCard(
-                  context,
-                  _buildCurrentConditionsContent(),
-                  accent: Colors.cyan,
-                ),
-                const SizedBox(height: 12),
-                _niceCard(
-                  context,
-                  _buildRiskAssessmentContent(),
-                  accent: Colors.green,
-                ),
-                const SizedBox(height: 12),
-                _niceCard(
-                  context,
-                  _buildActiveAlertsContent(),
-                  accent: Colors.orange,
-                ),
-              ],
-            ),
-            // Trends Tab
-            ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                Row(
-                  children: [
-                    const Text('Time Range: '),
-                    DropdownButton<String>(
-                      value: _trendRange,
-                      items: const [
-                        DropdownMenuItem(value: '7d', child: Text('7 days')),
-                        DropdownMenuItem(value: '30d', child: Text('30 days')),
-                        DropdownMenuItem(value: '1y', child: Text('1 year')),
-                      ],
-                      onChanged: (v) =>
-                          setState(() => _trendRange = v ?? '30d'),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                _darkCard(
-                  context,
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Text(
-                      _trendInsight(),
-                      style: const TextStyle(fontSize: 15),
-                    ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  // Overview Tab
+                  ListView(
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      _niceCard(
+                        context,
+                        _buildHeaderCardContent(),
+                        accent: Colors.blue,
+                      ),
+                      const SizedBox(height: 12),
+                      _niceCard(
+                        context,
+                        _buildCurrentConditionsContent(),
+                        accent: Colors.cyan,
+                      ),
+                      const SizedBox(height: 12),
+                      _niceCard(
+                        context,
+                        _buildRiskAssessmentContent(),
+                        accent: Colors.green,
+                      ),
+                      const SizedBox(height: 12),
+                      _niceCard(
+                        context,
+                        _buildActiveAlertsContent(),
+                        accent: Colors.orange,
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 8),
-                _buildRiskTrendChart(
-                  'Flood Risk Trend',
-                  _getTrendData('flood'),
-                  Colors.red,
-                ),
-                const SizedBox(height: 8),
-                _buildRiskTrendChart(
-                  'Drought Risk Trend',
-                  _getTrendData('drought'),
-                  Colors.orange,
-                ),
-                const SizedBox(height: 8),
-                _buildTemperatureTrend(),
-                const SizedBox(height: 8),
-                _buildRainfallTrend(),
-                const SizedBox(height: 8),
-                _buildWaterTableTrend(),
-                const SizedBox(height: 8),
-                _buildCommunityTrendsChart(),
-              ],
-            ),
-            // Risk Map Tab
-            ListView(
-              padding: const EdgeInsets.all(16),
-              children: [_buildRiskMapTab()],
-            ),
-            // Prediction Tab
-            ListView(
-              padding: const EdgeInsets.all(16),
-              children: [_buildPredictionContent()],
+                  // Trends Tab
+                  ListView(
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      Row(
+                        children: [
+                          const Text('Time Range: '),
+                          DropdownButton<String>(
+                            value: _trendRange,
+                            items: const [
+                              DropdownMenuItem(
+                                value: '7d',
+                                child: Text('7 days'),
+                              ),
+                              DropdownMenuItem(
+                                value: '30d',
+                                child: Text('30 days'),
+                              ),
+                              DropdownMenuItem(
+                                value: '1y',
+                                child: Text('1 year'),
+                              ),
+                            ],
+                            onChanged: (v) =>
+                                setState(() => _trendRange = v ?? '30d'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      _darkCard(
+                        context,
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Text(
+                            _trendInsight(),
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      _buildRiskTrendChart(
+                        'Flood Risk Trend',
+                        _getTrendData('flood'),
+                        Colors.red,
+                      ),
+                      const SizedBox(height: 8),
+                      _buildRiskTrendChart(
+                        'Drought Risk Trend',
+                        _getTrendData('drought'),
+                        Colors.orange,
+                      ),
+                      const SizedBox(height: 8),
+                      _buildTemperatureTrend(),
+                      const SizedBox(height: 8),
+                      _buildRainfallTrend(),
+                      const SizedBox(height: 8),
+                      _buildWaterTableTrend(),
+                      const SizedBox(height: 8),
+                      _buildCommunityTrendsChart(),
+                    ],
+                  ),
+                  // Risk Map Tab
+                  ListView(
+                    padding: const EdgeInsets.all(16),
+                    children: [_buildRiskMapTab()],
+                  ),
+                  // Prediction Tab
+                  ListView(
+                    padding: const EdgeInsets.all(16),
+                    children: [_buildPredictionContent()],
+                  ),
+                  // Infrastructure Tab
+                  _buildInfrastructureTab(),
+                ],
+              ),
             ),
           ],
         ),
@@ -2560,32 +2623,986 @@ class _ClimateMonitoringScreenState extends State<ClimateMonitoringScreen>
         ? 365
         : 30;
   }
-}
 
-// Custom painter for dashed lines
-class _DashedLinePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.grey
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
+  Widget _buildInfrastructureTab() {
+    // Enhanced mock sensor data with status, maintenance info, and alerts
+    final List<Map<String, dynamic>> sensors = [
+      {
+        'category': 'Building Sensors',
+        'icon': Icons.apartment,
+        'color': Colors.blueGrey,
+        'status': 'Good',
+        'lastMaintenance': '2024-01-15',
+        'nextMaintenance': '2024-04-15',
+        'data': [
+          {
+            'label': 'Temperature',
+            'value': '22°C',
+            'status': 'Normal',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Humidity',
+            'value': '45%',
+            'status': 'Good',
+            'trend': 'decreasing',
+            'alert': false,
+          },
+          {
+            'label': 'Structural Integrity',
+            'value': 'Stable',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Fire Detection',
+            'value': 'Clear',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+        ],
+      },
+      {
+        'category': 'Water Infrastructure',
+        'icon': Icons.water,
+        'color': Colors.blue,
+        'status': 'Warning',
+        'lastMaintenance': '2024-01-10',
+        'nextMaintenance': '2024-03-10',
+        'data': [
+          {
+            'label': 'Pipe Pressure',
+            'value': '4.8 bar',
+            'status': 'High',
+            'trend': 'increasing',
+            'alert': true,
+          },
+          {
+            'label': 'Water Quality',
+            'value': 'Safe',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Flow Rate',
+            'value': '180 L/min',
+            'status': 'High',
+            'trend': 'increasing',
+            'alert': true,
+          },
+          {
+            'label': 'Leak Detection',
+            'value': 'None',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+        ],
+      },
+      {
+        'category': 'Power Grid',
+        'icon': Icons.electrical_services,
+        'color': Colors.orange,
+        'status': 'Good',
+        'lastMaintenance': '2024-01-20',
+        'nextMaintenance': '2024-05-20',
+        'data': [
+          {
+            'label': 'Voltage',
+            'value': '230V',
+            'status': 'Normal',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Current',
+            'value': '15A',
+            'status': 'Normal',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Outage',
+            'value': 'No',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Transformer Temp',
+            'value': '65°C',
+            'status': 'Normal',
+            'trend': 'stable',
+            'alert': false,
+          },
+        ],
+      },
+      {
+        'category': 'Transportation',
+        'icon': Icons.emoji_transportation,
+        'color': Colors.green,
+        'status': 'Critical',
+        'lastMaintenance': '2024-01-05',
+        'nextMaintenance': '2024-02-05',
+        'data': [
+          {
+            'label': 'Road Condition',
+            'value': 'Clear',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Bridge Sensors',
+            'value': 'Warning',
+            'status': 'Critical',
+            'trend': 'decreasing',
+            'alert': true,
+          },
+          {
+            'label': 'Traffic Flow',
+            'value': 'Smooth',
+            'status': 'Normal',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Tunnel Ventilation',
+            'value': 'Operational',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+        ],
+      },
+      {
+        'category': 'Environmental',
+        'icon': Icons.eco,
+        'color': Colors.teal,
+        'status': 'Good',
+        'lastMaintenance': '2024-01-12',
+        'nextMaintenance': '2024-04-12',
+        'data': [
+          {
+            'label': 'Air Quality',
+            'value': 'Good',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Noise Level',
+            'value': 'Low',
+            'status': 'Normal',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Vibration',
+            'value': 'None',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+          {
+            'label': 'Radiation Level',
+            'value': 'Normal',
+            'status': 'Good',
+            'trend': 'stable',
+            'alert': false,
+          },
+        ],
+      },
+    ];
 
-    const dashWidth = 4;
-    const dashSpace = 4;
-    double startX = 0;
-    final double endX = size.width;
+    // Calculate overall status
+    final criticalCount = sensors
+        .where((s) => s['status'] == 'Critical')
+        .length;
+    final warningCount = sensors.where((s) => s['status'] == 'Warning').length;
+    final alertCount = sensors
+        .expand((s) => (s['data'] as List).where((d) => d['alert'] == true))
+        .length;
 
-    while (startX < endX) {
-      canvas.drawLine(
-        Offset(startX, size.height / 2),
-        Offset(startX + dashWidth, size.height / 2),
-        paint,
-      );
-      startX += dashWidth + dashSpace;
-    }
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        // Overall Status Banner
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: criticalCount > 0
+                ? Colors.red.withOpacity(0.1)
+                : warningCount > 0
+                ? Colors.orange.withOpacity(0.1)
+                : Colors.green.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: criticalCount > 0
+                  ? Colors.red.withOpacity(0.3)
+                  : warningCount > 0
+                  ? Colors.orange.withOpacity(0.3)
+                  : Colors.green.withOpacity(0.3),
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                criticalCount > 0
+                    ? Icons.warning_amber_rounded
+                    : warningCount > 0
+                    ? Icons.info_outline
+                    : Icons.check_circle,
+                color: criticalCount > 0
+                    ? Colors.red
+                    : warningCount > 0
+                    ? Colors.orange
+                    : Colors.green,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      criticalCount > 0
+                          ? 'Critical Infrastructure Alert'
+                          : warningCount > 0
+                          ? 'Infrastructure Warning'
+                          : 'All Systems Operational',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: criticalCount > 0
+                            ? Colors.red
+                            : warningCount > 0
+                            ? Colors.orange
+                            : Colors.green,
+                      ),
+                      overflow: TextOverflow.visible,
+                    ),
+                    Text(
+                      '$alertCount active alerts • ${sensors.length} systems monitored',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.black54,
+                      ),
+                      overflow: TextOverflow.visible,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+
+        // Enhanced Sensor Cards
+        ...sensors.map(
+          (sensor) => GestureDetector(
+            onTap: () {
+              print('Tapped on ${sensor['category']}'); // Debug print
+              // Show a simple alert first to test
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Tapped on ${sensor['category']}'),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+              _showInfrastructureDetails(context, sensor);
+            },
+            child: Card(
+              color: (sensor['color'] as Color).withOpacity(0.07),
+              elevation: 2,
+              shadowColor: (sensor['color'] as Color).withOpacity(0.2),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+                side: BorderSide(
+                  color: sensor['status'] == 'Critical'
+                      ? Colors.red.withOpacity(0.3)
+                      : sensor['status'] == 'Warning'
+                      ? Colors.orange.withOpacity(0.3)
+                      : Colors.transparent,
+                  width:
+                      sensor['status'] == 'Critical' ||
+                          sensor['status'] == 'Warning'
+                      ? 2
+                      : 0,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Header with status indicator
+                    Row(
+                      children: [
+                        Stack(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: (sensor['color'] as Color)
+                                  .withOpacity(0.2),
+                              child: Icon(
+                                sensor['icon'] as IconData,
+                                color: sensor['color'] as Color,
+                              ),
+                            ),
+                            if (sensor['status'] == 'Critical' ||
+                                sensor['status'] == 'Warning')
+                              Positioned(
+                                right: 0,
+                                top: 0,
+                                child: Container(
+                                  width: 12,
+                                  height: 12,
+                                  decoration: BoxDecoration(
+                                    color: sensor['status'] == 'Critical'
+                                        ? Colors.red
+                                        : Colors.orange,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: sensor['status'] == 'Critical'
+                                      ? const Icon(
+                                          Icons.warning,
+                                          color: Colors.white,
+                                          size: 8,
+                                        )
+                                      : const Icon(
+                                          Icons.info,
+                                          color: Colors.white,
+                                          size: 8,
+                                        ),
+                                ),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                sensor['category'] as String,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: sensor['color'] as Color,
+                                ),
+                                overflow: TextOverflow.visible,
+                              ),
+                              Text(
+                                'Last maintenance: ${sensor['lastMaintenance']}',
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.black54,
+                                ),
+                                overflow: TextOverflow.visible,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: sensor['status'] == 'Critical'
+                                    ? Colors.red.withOpacity(0.1)
+                                    : sensor['status'] == 'Warning'
+                                    ? Colors.orange.withOpacity(0.1)
+                                    : Colors.green.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                sensor['status'] as String,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: sensor['status'] == 'Critical'
+                                      ? Colors.red
+                                      : sensor['status'] == 'Warning'
+                                      ? Colors.orange
+                                      : Colors.green,
+                                ),
+                                overflow: TextOverflow.visible,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16,
+                              color: (sensor['color'] as Color).withOpacity(
+                                0.6,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Sensor Data with Trends
+                    ...List.generate((sensor['data'] as List).length, (i) {
+                      final d =
+                          (sensor['data'] as List)[i] as Map<String, dynamic>;
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: d['alert'] == true
+                              ? Colors.red.withOpacity(0.05)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(8),
+                          border: d['alert'] == true
+                              ? Border.all(color: Colors.red.withOpacity(0.2))
+                              : null,
+                        ),
+                        child: Row(
+                          children: [
+                            // Status Icon with Animation
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              child: Icon(
+                                d['status'] == 'Good'
+                                    ? Icons.check_circle
+                                    : d['status'] == 'Normal'
+                                    ? Icons.radio_button_checked
+                                    : Icons.error,
+                                color: d['status'] == 'Good'
+                                    ? Colors.green
+                                    : d['status'] == 'Normal'
+                                    ? Colors.blueGrey
+                                    : Colors.red,
+                                size: 20,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+
+                            // Sensor Info
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          d['label'] as String,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          overflow: TextOverflow.visible,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      // Trend Indicator
+                                      Icon(
+                                        d['trend'] == 'increasing'
+                                            ? Icons.trending_up
+                                            : d['trend'] == 'decreasing'
+                                            ? Icons.trending_down
+                                            : Icons.trending_flat,
+                                        color: d['trend'] == 'increasing'
+                                            ? Colors.red
+                                            : d['trend'] == 'decreasing'
+                                            ? Colors.green
+                                            : Colors.grey,
+                                        size: 18,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    d['value'] as String,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: d['alert'] == true
+                                          ? Colors.red
+                                          : Colors.black87,
+                                    ),
+                                    overflow: TextOverflow.visible,
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // Action Button
+                            if (d['alert'] == true)
+                              IconButton(
+                                onPressed: () =>
+                                    _showSensorDetails(context, sensor, d),
+                                icon: const Icon(
+                                  Icons.info_outline,
+                                  color: Colors.red,
+                                ),
+                                tooltip: 'View Details',
+                              ),
+                          ],
+                        ),
+                      );
+                    }),
+
+                    // Maintenance Info
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.schedule,
+                            size: 16,
+                            color: Colors.black54,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Next maintenance: ${sensor['nextMaintenance']}',
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.black54,
+                              ),
+                              overflow: TextOverflow.visible,
+                            ),
+                          ),
+                          Text(
+                            'Tap for details',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: (sensor['color'] as Color).withOpacity(
+                                0.6,
+                              ),
+                              fontStyle: FontStyle.italic,
+                            ),
+                            overflow: TextOverflow.visible,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        // Historical Data Chart
+        const SizedBox(height: 20),
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Sensor Trends (Last 24 Hours)',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 200,
+                  child: LineChart(
+                    LineChartData(
+                      gridData: FlGridData(show: true, drawVerticalLine: true),
+                      titlesData: FlTitlesData(
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 40,
+                          ),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 30,
+                          ),
+                        ),
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                      ),
+                      borderData: FlBorderData(show: true),
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: [
+                            const FlSpot(0, 22),
+                            const FlSpot(4, 23),
+                            const FlSpot(8, 21),
+                            const FlSpot(12, 24),
+                            const FlSpot(16, 22),
+                            const FlSpot(20, 23),
+                            const FlSpot(24, 22),
+                          ],
+                          isCurved: true,
+                          color: Colors.blue,
+                          barWidth: 3,
+                          dotData: FlDotData(show: false),
+                        ),
+                        LineChartBarData(
+                          spots: [
+                            const FlSpot(0, 45),
+                            const FlSpot(4, 48),
+                            const FlSpot(8, 42),
+                            const FlSpot(12, 50),
+                            const FlSpot(16, 47),
+                            const FlSpot(20, 45),
+                            const FlSpot(24, 45),
+                          ],
+                          isCurved: true,
+                          color: Colors.green,
+                          barWidth: 3,
+                          dotData: FlDotData(show: false),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(width: 12, height: 12, color: Colors.blue),
+                    const SizedBox(width: 8),
+                    const Text('Temperature (°C)'),
+                    const SizedBox(width: 20),
+                    Container(width: 12, height: 12, color: Colors.green),
+                    const SizedBox(width: 8),
+                    const Text('Humidity (%)'),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  void _showSensorDetails(
+    BuildContext context,
+    Map<String, dynamic> sensor,
+    Map<String, dynamic> data,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('${data['label']} Details'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Sensor: ${sensor['category']}'),
+            Text('Current Value: ${data['value']}'),
+            Text('Status: ${data['status']}'),
+            Text('Trend: ${data['trend']}'),
+            const SizedBox(height: 16),
+            const Text(
+              'Recommended Actions:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const Text('• Check sensor calibration'),
+            const Text('• Review maintenance schedule'),
+            const Text('• Contact maintenance team if issue persists'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // TODO: Implement report issue functionality
+            },
+            child: const Text('Report Issue'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showInfrastructureDetails(
+    BuildContext context,
+    Map<String, dynamic> sensor,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: (sensor['color'] as Color).withOpacity(0.2),
+              child: Icon(
+                sensor['icon'] as IconData,
+                color: sensor['color'] as Color,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                '${sensor['category']} Details',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Status Overview
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: sensor['status'] == 'Critical'
+                      ? Colors.red.withOpacity(0.1)
+                      : sensor['status'] == 'Warning'
+                      ? Colors.orange.withOpacity(0.1)
+                      : Colors.green.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      sensor['status'] == 'Critical'
+                          ? Icons.warning_amber_rounded
+                          : sensor['status'] == 'Warning'
+                          ? Icons.info_outline
+                          : Icons.check_circle,
+                      color: sensor['status'] == 'Critical'
+                          ? Colors.red
+                          : sensor['status'] == 'Warning'
+                          ? Colors.orange
+                          : Colors.green,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Status: ${sensor['status']}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: sensor['status'] == 'Critical'
+                            ? Colors.red
+                            : sensor['status'] == 'Warning'
+                            ? Colors.orange
+                            : Colors.green,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Maintenance Info
+              const Text(
+                'Maintenance Information',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  const Icon(Icons.history, size: 16, color: Colors.black54),
+                  const SizedBox(width: 8),
+                  Text('Last: ${sensor['lastMaintenance']}'),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  const Icon(Icons.schedule, size: 16, color: Colors.black54),
+                  const SizedBox(width: 8),
+                  Text('Next: ${sensor['nextMaintenance']}'),
+                ],
+              ),
+              const SizedBox(height: 16),
+
+              // Sensor Data
+              const Text(
+                'Sensor Readings',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              ...List.generate((sensor['data'] as List).length, (i) {
+                final d = (sensor['data'] as List)[i] as Map<String, dynamic>;
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: d['alert'] == true
+                        ? Colors.red.withOpacity(0.05)
+                        : Colors.grey.withOpacity(0.05),
+                    borderRadius: BorderRadius.circular(8),
+                    border: d['alert'] == true
+                        ? Border.all(color: Colors.red.withOpacity(0.2))
+                        : null,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            d['status'] == 'Good'
+                                ? Icons.check_circle
+                                : d['status'] == 'Normal'
+                                ? Icons.radio_button_checked
+                                : Icons.error,
+                            color: d['status'] == 'Good'
+                                ? Colors.green
+                                : d['status'] == 'Normal'
+                                ? Colors.blueGrey
+                                : Colors.red,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              d['label'] as String,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            d['value'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: d['alert'] == true
+                                  ? Colors.red
+                                  : Colors.black87,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Icon(
+                            d['trend'] == 'increasing'
+                                ? Icons.trending_up
+                                : d['trend'] == 'decreasing'
+                                ? Icons.trending_down
+                                : Icons.trending_flat,
+                            color: d['trend'] == 'increasing'
+                                ? Colors.red
+                                : d['trend'] == 'decreasing'
+                                ? Colors.green
+                                : Colors.grey,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Trend: ${d['trend']}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.black54,
+                            ),
+                          ),
+                          if (d['alert'] == true) ...[
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.red.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Text(
+                                'ALERT',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }),
+
+              const SizedBox(height: 16),
+
+              // Actions
+              const Text(
+                'Quick Actions',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        // TODO: Implement maintenance request
+                      },
+                      icon: const Icon(Icons.build),
+                      label: const Text('Request Maintenance'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        // TODO: Implement sensor calibration
+                      },
+                      icon: const Icon(Icons.tune),
+                      label: const Text('Calibrate Sensors'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
 }

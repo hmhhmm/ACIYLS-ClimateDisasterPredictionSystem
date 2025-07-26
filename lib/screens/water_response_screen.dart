@@ -2058,8 +2058,8 @@ class _EmbeddedWaterSourceMapState extends State<_EmbeddedWaterSourceMap> {
         child: kIsWeb
             ? fmap.FlutterMap(
                 options: fmap.MapOptions(
-                  center: latlong.LatLng(1.300, 103.800),
-                  zoom: 14,
+                  initialCenter: latlong.LatLng(1.300, 103.800),
+                  initialZoom: 14,
                 ),
                 children: [
                   fmap.TileLayer(
