@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Water & Sanitation Tracker',
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.dark,
         theme: ThemeData(
           colorScheme: const ColorScheme.light(
             primary: Color(0xFF007AFF),
@@ -92,14 +92,14 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeData(
           colorScheme: const ColorScheme.dark(
             primary: Color(0xFF0A84FF),
-            onPrimary: Colors.black,
+            onPrimary: Colors.white,
             secondary: Color(0xFF5E5CE6),
-            onSecondary: Colors.black,
+            onSecondary: Colors.white,
             error: Color(0xFFFF453A),
-            onError: Colors.black,
+            onError: Colors.white,
             surface: Color(0xFF1C1C1E),
             onSurface: Colors.white,
-            background: Color(0xFF121212),
+            background: Color(0xFF000000),
             onBackground: Colors.white,
           ),
           useMaterial3: true,
@@ -143,7 +143,7 @@ class MyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            color: Color(0xFF23232B),
+            color: Color(0xFF1A1A1A),
             margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             shadowColor: Color(0x44000000),
           ),

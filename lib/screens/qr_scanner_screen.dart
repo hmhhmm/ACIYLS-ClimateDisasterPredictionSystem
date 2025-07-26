@@ -302,7 +302,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
     return Theme(
       data: Theme.of(context).copyWith(
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.black,
+          backgroundColor: const Color(0xFF63C5DA),
           foregroundColor: Colors.white,
           elevation: 0,
           titleTextStyle: TextStyle(
@@ -314,7 +314,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF63C5DA),
         appBar: AppBar(
           title: const Text('Scan Water Unit QR'),
           actions: [
