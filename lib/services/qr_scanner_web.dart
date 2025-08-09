@@ -1,4 +1,3 @@
-import 'dart:html' as html;
 import 'package:flutter/material.dart';
 
 class QRScannerWeb extends StatefulWidget {
@@ -11,57 +10,8 @@ class QRScannerWeb extends StatefulWidget {
 }
 
 class _QRScannerWebState extends State<QRScannerWeb> {
-  late final html.VideoElement _videoElement;
-  bool _isInitialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeScanner();
-  }
-
-  Future<void> _initializeScanner() async {
-    try {
-      // Create video element
-      _videoElement = html.VideoElement()
-        ..style.width = '100%'
-        ..style.height = '100%'
-        ..style.objectFit = 'cover'
-        ..setAttribute('playsinline', 'true')
-        ..setAttribute('autoplay', 'true');
-
-      // Get user media
-      final stream = await html.window.navigator.mediaDevices?.getUserMedia({
-        'video': {'facingMode': 'environment'},
-      });
-
-      if (stream != null) {
-        _videoElement.srcObject = stream;
-        setState(() => _isInitialized = true);
-      }
-    } catch (e) {
-      debugPrint('Error initializing scanner: $e');
-    }
-  }
-
-  @override
-  void dispose() {
-    // Stop video stream
-    final stream = _videoElement.srcObject;
-    if (stream != null) {
-      stream.getTracks().forEach((track) => track.stop());
-    }
-    _videoElement.remove();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (!_isInitialized) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    // For web, we'll just show a message since QR scanning is complex in web
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -82,6 +32,16 @@ class _QRScannerWebState extends State<QRScannerWeb> {
           ElevatedButton(
             onPressed: () => widget.onScan('UNIT001'),
             child: const Text('Test Scan UNIT001'),
+          ),
+          const SizedBox(height: 12),
+          ElevatedButton(
+            onPressed: () => widget.onScan('UNIT002'),
+            child: const Text('Test Scan UNIT002'),
+          ),
+          const SizedBox(height: 12),
+          ElevatedButton(
+            onPressed: () => widget.onScan('UNIT003'),
+            child: const Text('Test Scan UNIT003'),
           ),
         ],
       ),
