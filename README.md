@@ -186,12 +186,6 @@ We welcome contributions from developers, researchers, and business professional
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Contact
 
-- **Business Inquiries**: business@climateaction.com
-- **Technical Support**: support@climateaction.com
-- **Partnership Opportunities**: partnerships@climateaction.com
-
----
 
 *Building a more resilient world through technology and collaboration.*
